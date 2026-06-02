@@ -28,18 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Menu));
+            this.components = new System.ComponentModel.Container();
             this.Play = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // Play
             // 
-            this.Play.Location = new System.Drawing.Point(349, 184);
+            this.Play.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Play.Location = new System.Drawing.Point(350, 200);
             this.Play.Name = "Play";
-            this.Play.Size = new System.Drawing.Size(75, 23);
+            this.Play.Size = new System.Drawing.Size(100, 50);
             this.Play.TabIndex = 0;
             this.Play.Text = "Play";
             this.Play.UseVisualStyleBackColor = true;
@@ -47,35 +48,32 @@
             // 
             // Exit
             // 
-            this.Exit.Location = new System.Drawing.Point(349, 235);
+            this.Exit.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Exit.Location = new System.Drawing.Point(350, 260);
             this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(75, 23);
+            this.Exit.Size = new System.Drawing.Size(100, 50);
             this.Exit.TabIndex = 1;
             this.Exit.Text = "Exit";
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // pictureBox1
+            // timer1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-5, -2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(806, 455);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.Play);
-            this.Controls.Add(this.pictureBox1);
             this.Name = "Main_Menu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main_Menu";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Main_Menu_Paint);
             this.ResumeLayout(false);
 
         }
@@ -84,6 +82,7 @@
 
         private System.Windows.Forms.Button Play;
         private System.Windows.Forms.Button Exit;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
     }
 }
