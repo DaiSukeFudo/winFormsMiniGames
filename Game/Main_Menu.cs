@@ -15,11 +15,12 @@ namespace Game
         public Main_Menu()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (Form1 game_form = new Form1())
+            using (Race game_form = new Race())
             {
                 this.Hide();
                 game_form.ShowDialog();

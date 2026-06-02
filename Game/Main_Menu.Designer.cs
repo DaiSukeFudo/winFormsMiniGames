@@ -32,7 +32,6 @@
             this.Play = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // Play
@@ -60,7 +59,7 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Main_Menu
@@ -83,6 +82,5 @@
         private System.Windows.Forms.Button Play;
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
     }
 }
