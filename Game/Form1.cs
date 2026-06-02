@@ -50,7 +50,7 @@ namespace Game
             Phon1.Top += speed;
             Phon2.Top += speed;
 
-            int carSpeed = 15;
+            int carSpeed = 12;
             Sop1.Top += carSpeed;
             Sop2.Top += carSpeed;
             

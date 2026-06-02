@@ -59,7 +59,7 @@
             // 
             this.Car.BackColor = System.Drawing.Color.Transparent;
             this.Car.Image = ((System.Drawing.Image)(resources.GetObject("Car.Image")));
-            this.Car.Location = new System.Drawing.Point(445, 433);
+            this.Car.Location = new System.Drawing.Point(442, 407);
             this.Car.Name = "Car";
             this.Car.Size = new System.Drawing.Size(81, 155);
             this.Car.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -120,7 +120,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.bitoc);
             this.Controls.Add(this.Sop2);
