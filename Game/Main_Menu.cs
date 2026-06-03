@@ -36,7 +36,7 @@ namespace Game
 
         private void Main_Menu_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.background,0, 0, this.Size.Width, this.Size.Height);
+            e.Graphics.DrawImage(Properties.Resources.background, 0, 0, this.Size.Width, this.Size.Height);
         }
 
 

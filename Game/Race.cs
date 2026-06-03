@@ -9,29 +9,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Media;
-using static Game.Player;
 
 namespace Game
 {
  
     public partial class Race : Form
     {
+      
+
+       
         
-        private int phon_speed = 10;
-        private int enemy_speed = 15;
-        private int bitoc_speed = 10;
-
-
-        private int start_enemy_x = 120;
-        private int start_enemy_y = -100;
-
+        
 
         public Race()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
             this.KeyPreview = true;
-            this.Size = new Size(600, 600);
+            
         }
 
 
@@ -47,33 +42,31 @@ namespace Game
         }
 
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+
+        private void Race_Paint(object sender, PaintEventArgs e)
         {
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
             e.Graphics.DrawImage(Properties.Resources.road, 0, 0);
-            e.Graphics.DrawImage(Properties.Resources.road, 0, 0, this.Size.Width, this.Size.Height);
+            
+            e.Graphics.DrawImage(Properties.Resources.enemy, Enemy.GetX(), Enemy.GetY(), 100, 100);
             e.Graphics.DrawImage(Properties.Resources.car, Player.GetX(), Player.GetY(), 128, 128);
-            e.Graphics.DrawImage(Properties.Resources.enemy, start_enemy_x, start_enemy_y, 100, 100);
+
         }
 
 
         private void timer_Tick(object sender, EventArgs e)
         {
             Player.Move();
-            
-            Random random = new Random();
 
-            start_enemy_y += enemy_speed; 
+            Enemy.Move();
 
-            if (start_enemy_y > this.Height) 
-            {
-                start_enemy_y = -200;
-                start_enemy_x = random.Next(110, 365);
-            }
             this.Invalidate();
         }
 
         
-                
+
     }
 
 

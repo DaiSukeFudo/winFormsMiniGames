@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,12 +21,15 @@ namespace Game
         private static int car_speed = 15;
 
         private const int Allowance_Left = 110;
-        private const int Allowance_Right = 365;
-        private const int Allowance_Up = 150;
-        private const int Allowance_Down = 440;
+        private const int Allowance_Right = 600;
+        private const int Allowance_Up = 100;
+        private const int Allowance_Down = 530;
 
-        private static Race race = new Race();
-       
+
+
+
+
+
         public static int GetX()
         {
             return x;
@@ -61,26 +65,28 @@ namespace Game
         public static void Move()
         {
             
+
             if (isLeft && x > Allowance_Left)
             {
+
+                
                 x -= car_speed;
-                race.Invalidate();
+   
             }
             if (isRight && x < Allowance_Right)
             {
                 x += car_speed;
-                race.Invalidate();
             }
             if (Up && y > Allowance_Up)
             {
 
                 y -= car_speed;
-                race.Invalidate();
+    
             }
             if (Down && y < Allowance_Down)
             {
                 y += car_speed;
-                race.Invalidate();
+
             }
         }
 

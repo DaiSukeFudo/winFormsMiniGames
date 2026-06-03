@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enemy.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Race.cs">
       <SubType>Form</SubType>

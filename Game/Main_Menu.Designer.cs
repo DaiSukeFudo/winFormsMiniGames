@@ -37,7 +37,7 @@
             // Play
             // 
             this.Play.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Play.Location = new System.Drawing.Point(350, 200);
+            this.Play.Location = new System.Drawing.Point(750, 350);
             this.Play.Name = "Play";
             this.Play.Size = new System.Drawing.Size(100, 50);
             this.Play.TabIndex = 0;
@@ -48,7 +48,7 @@
             // Exit
             // 
             this.Exit.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Exit.Location = new System.Drawing.Point(350, 260);
+            this.Exit.Location = new System.Drawing.Point(750, 410);
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(100, 50);
             this.Exit.TabIndex = 1;
@@ -59,16 +59,17 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 10;
+            this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(1584, 861);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.Play);
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "Main_Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main_Menu";
