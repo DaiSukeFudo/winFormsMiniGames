@@ -15,27 +15,30 @@ namespace Game
         private static bool isLeft = false;
         private static bool isRight = false;
 
-        private static int x = 200;
-        private static int y = 400;
+        private static int x = 800;
+        private static int y = 720;
 
         private static int car_speed = 15;
 
-        private const int Allowance_Left = 110;
-        private const int Allowance_Right = 600;
+        private const int Allowance_Left = 440;
+        private const int Allowance_Right = 1000;
         private const int Allowance_Up = 100;
-        private const int Allowance_Down = 530;
+        private const int Allowance_Down = 720;
 
-
+        private static Random rnd = new Random();
 
 
 
 
         public static int GetX()
         {
+
             return x;
         }
         public static int GetY()
         {
+            
+           
             return y;
         }
         public static void _KeyDown(object sender, KeyEventArgs e)
@@ -90,7 +93,10 @@ namespace Game
             }
         }
 
-
+        public static void Player_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawImage(Properties.Resources.car, Player.GetX(), Player.GetY(), 128, 128);
+        }
 
     }
 }

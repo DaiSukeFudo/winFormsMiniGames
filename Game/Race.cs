@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.Media;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Game
 {
  
     public partial class Race : Form
     {
-      
-
-       
-        
-        
-
         public Race()
         {
             InitializeComponent();
@@ -41,17 +36,18 @@ namespace Game
             Player._KeyUp(sender, e);
         }
 
-
-
+        
         private void Race_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            e.Graphics.DrawImage(Properties.Resources.road, 0, 0);
-            
-            e.Graphics.DrawImage(Properties.Resources.enemy, Enemy.GetX(), Enemy.GetY(), 100, 100);
-            e.Graphics.DrawImage(Properties.Resources.car, Player.GetX(), Player.GetY(), 128, 128);
+            Road.Road_Paint(sender,e);
+
+            Enemy.Enemy_Paint(sender,e);
+
+            Player.Player_Paint(sender, e);
+
 
         }
 
