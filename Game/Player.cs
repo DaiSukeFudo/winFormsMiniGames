@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -18,29 +19,34 @@ namespace Game
         private static int x = 800;
         private static int y = 720;
 
-        private static int car_speed = 15;
+        private static int car_speed = 20;
 
-        private const int Allowance_Left = 440;
-        private const int Allowance_Right = 1000;
+        private const int Allowance_Left = 550;
+        private const int Allowance_Right = 950;
         private const int Allowance_Up = 100;
         private const int Allowance_Down = 720;
 
         private static Random rnd = new Random();
 
 
+        private static Rectangle rect1;
 
+        public static Rectangle GetRect()
+        {
+            rect1 = new Rectangle(x, y, 128, 128);
+            return rect1;
+        }
 
         public static int GetX()
         {
-
             return x;
         }
+
         public static int GetY()
         {
-            
-           
             return y;
         }
+
         public static void _KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -67,35 +73,36 @@ namespace Game
         
         public static void Move()
         {
-            
-
-            if (isLeft && x > Allowance_Left)
-            {
-
-                
+            if (isLeft && x > Allowance_Left) 
                 x -= car_speed;
-   
-            }
+ 
             if (isRight && x < Allowance_Right)
-            {
                 x += car_speed;
-            }
+            
             if (Up && y > Allowance_Up)
-            {
-
                 y -= car_speed;
     
-            }
             if (Down && y < Allowance_Down)
-            {
                 y += car_speed;
 
-            }
+            rect1 = new Rectangle(x, y, 128, 128);
         }
 
         public static void Player_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(Properties.Resources.car, Player.GetX(), Player.GetY(), 128, 128);
+        }
+
+
+        public static void Reset()
+        {
+            x = 800;
+            y = 720;
+            isLeft = false;
+            isRight = false;
+            Up = false;
+            Down = false;
+            rect1 = new Rectangle(x, y, 128, 128);
         }
 
     }

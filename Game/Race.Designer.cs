@@ -118,10 +118,10 @@
 
         #endregion
         private System.Windows.Forms.PictureBox Road2;
-        private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.PictureBox Enemy1;
         private System.Windows.Forms.PictureBox Enemy2;
         private System.Windows.Forms.PictureBox bitoc;
+        private System.Windows.Forms.Timer timer;
     }
 }
 

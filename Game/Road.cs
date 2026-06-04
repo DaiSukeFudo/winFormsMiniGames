@@ -12,22 +12,42 @@ namespace Game
 {
     internal class Road
     {
-        private static Race race = new Race();
-        private static float scaleY;
-        private static int newWidth;
-        private static int newHeight;
-        private static int x;
-        private static int y;
+        
+        private static int x = 400;
+        private static int y = 0;
+
+    
+        private static int start_y = y - 900;
+
+
+        private static int Speed = 30; 
+        
 
         public static void Road_Paint(object sender, PaintEventArgs e)
         {
-            scaleY = (float)race.ClientSize.Height / Properties.Resources.road.Height;
-            newWidth = (int)(Properties.Resources.road.Width * scaleY);
-            newHeight = race.ClientSize.Height;
-            x = (race.ClientSize.Width - newWidth) / 2; 
-            y = 0;
-            Rectangle destRect = new Rectangle(x, y, newWidth, newHeight);
-            e.Graphics.DrawImage(Properties.Resources.road, destRect);
+            e.Graphics.DrawImage(Properties.Resources.road, x, y, 800, 900);
+            e.Graphics.DrawImage(Properties.Resources.road, x, start_y, 800, 900);
+
         }
+        public static void Move()
+        {
+            y += Speed;
+            start_y += Speed;
+
+            if (y >= 900)
+                y = -900;
+             
+            if (start_y >= 900)
+                start_y = -900;
+            
+        }
+
+        public static void Reset()
+        {
+            y = 0;
+            start_y = -900;
+            Speed = 30;
+        }
+
     }
 }
