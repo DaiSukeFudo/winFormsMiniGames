@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,10 +14,14 @@ namespace Game
 {
     internal class Collision
     {
-
         private static Timer timer = new Timer();
 
         private static bool isColliding = false;
+        private static Race raceForm;
+
+
+
+        
 
         public static void Collision_Detection()
         {
@@ -47,10 +52,12 @@ namespace Game
 
                 if (result == DialogResult.Yes)
                 {
-
+                    GameStats.BitcoinCount = 0;
+                    UpdateBitcoinCounter();
                     Player.Reset();
                     Enemy.Reset();
                     Road.Reset();
+                    Bitcoin.Reset();
 
                     if (raceForm != null)
                     {
@@ -72,6 +79,49 @@ namespace Game
                 isColliding = false;
             }
         }
+
+        public static class GameStats
+        {
+            public static int BitcoinCount { get; set; } = 0;
+        }
+
+        public static void Collecting_Bitcoin()
+        {
+            Rectangle playerRect = Player.GetRect();
+            Rectangle bitcoinRect = Bitcoin.GetRect();
+
+            if (playerRect.IntersectsWith(bitcoinRect))
+            {
+                    
+                 GameStats.BitcoinCount++;
+
+                    
+                 Bitcoin.Collect();
+
+                    
+                 UpdateBitcoinCounter();
+
+                    
+                 Bitcoin.Respawn();
+            }
+            
+        }
+
+        public static void Initialize(Race form)
+        {
+            raceForm = form;
+        }
+
+        private static void UpdateBitcoinCounter()
+        {
+            if (raceForm != null)
+            {
+                raceForm.UpdateBitcoinLabel(GameStats.BitcoinCount);
+            }
+        }
+
+        
+
 
     }
 }

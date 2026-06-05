@@ -25,8 +25,10 @@ namespace Game
 
         public static void Road_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.SetClip(e.ClipRectangle);
             e.Graphics.DrawImage(Properties.Resources.road, x, y, 800, 900);
             e.Graphics.DrawImage(Properties.Resources.road, x, start_y, 800, 900);
+            e.Graphics.ResetClip();
 
         }
         public static void Move()

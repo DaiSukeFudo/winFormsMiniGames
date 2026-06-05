@@ -19,12 +19,12 @@ namespace Game
 
         private static Random random1 = new Random();
 
-        private static Rectangle rect2;
+        private static Rectangle rect;
 
         public static Rectangle GetRect()
         {
-            rect2 = new Rectangle(x, y, 100, 100); 
-            return rect2;
+            rect = new Rectangle(x, y, 100, 100); 
+            return rect;
         }
 
 
@@ -47,7 +47,7 @@ namespace Game
                 y = -200;
                 x = random1.Next(550, 950);
             }
-            rect2 = new Rectangle(x, y, 100, 100);
+            rect = new Rectangle(x, y, 100, 100);
         }
 
         public static void Enemy_Paint(object sender, PaintEventArgs e)
@@ -61,7 +61,7 @@ namespace Game
             x = 600;
             y = -100;
             enemy_speed = 20;
-            rect2 = new Rectangle(x, y, 100, 100);
+            rect = new Rectangle(x, y, 100, 100);
         }
 
     }

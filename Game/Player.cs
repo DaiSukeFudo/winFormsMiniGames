@@ -29,12 +29,12 @@ namespace Game
         private static Random rnd = new Random();
 
 
-        private static Rectangle rect1;
+        private static Rectangle rect;
 
         public static Rectangle GetRect()
         {
-            rect1 = new Rectangle(x, y, 128, 128);
-            return rect1;
+            rect = new Rectangle(x, y, 128, 128);
+            return rect;
         }
 
         public static int GetX()
@@ -85,7 +85,7 @@ namespace Game
             if (Down && y < Allowance_Down)
                 y += car_speed;
 
-            rect1 = new Rectangle(x, y, 128, 128);
+            rect = new Rectangle(x, y, 128, 128);
         }
 
         public static void Player_Paint(object sender, PaintEventArgs e)
@@ -102,7 +102,7 @@ namespace Game
             isRight = false;
             Up = false;
             Down = false;
-            rect1 = new Rectangle(x, y, 128, 128);
+            rect = new Rectangle(x, y, 128, 128);
         }
 
     }
