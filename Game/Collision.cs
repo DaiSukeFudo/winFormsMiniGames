@@ -20,73 +20,31 @@ namespace Game
         private static Race raceForm;
 
 
-
-        
-
-        public static void Collision_Detection()
+        public static bool Collision_Detection(Rectangle hitbox1, Rectangle hitbox2)
         {
-            Rectangle playerRect = Player.GetRect();
-            Rectangle enemyRect = Enemy.GetRect();
-
-            if (playerRect.IntersectsWith(enemyRect) && !isColliding)
+            if (hitbox1.IntersectsWith(hitbox2))
             {
-                isColliding = true;
-                Race raceForm = null;
-                foreach (Form form in Application.OpenForms)
-                {
-                    if (form is Race)
-                    {
-                        raceForm = (Race)form;
-                        break;
-                    }
-                }
-
-                if (raceForm != null)
-                {
-                    timer.Enabled = false;
-                }
-
-                DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
-                                                       "Game Over",
-                                                       MessageBoxButtons.YesNo);
-
-                if (result == DialogResult.Yes)
-                {
-                    GameStats.BitcoinCount = 0;
-                    UpdateBitcoinCounter();
-                    Player.Reset();
-                    Enemy.Reset();
-                    Road.Reset();
-                    Bitcoin.Reset();
-
-                    if (raceForm != null)
-                    {
-                        timer.Enabled = true;
-                    }
-                }
-                else
-                {
-                    if (raceForm != null)
-                    {
-                        raceForm.Close();
-                    }
-                }
-
-
+                return true;
             }
-            else if (!playerRect.IntersectsWith(enemyRect))
+            else
             {
-                isColliding = false;
+                return false;
             }
         }
+
+
 
         public static class GameStats
         {
             public static int BitcoinCount { get; set; } = 0;
         }
 
+
+
+
         public static void Collecting_Bitcoin()
         {
+            
             Rectangle playerRect = Player.GetRect();
             Rectangle bitcoinRect = Bitcoin.GetRect();
 
@@ -107,10 +65,14 @@ namespace Game
             
         }
 
+
+
         public static void Initialize(Race form)
         {
             raceForm = form;
         }
+
+
 
         private static void UpdateBitcoinCounter()
         {
@@ -119,9 +81,6 @@ namespace Game
                 raceForm.UpdateBitcoinLabel(GameStats.BitcoinCount);
             }
         }
-
-        
-
 
     }
 }

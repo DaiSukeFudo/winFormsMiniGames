@@ -20,7 +20,7 @@ namespace Game
         private static int start_y = y - 900;
 
 
-        private static int Speed = 30; 
+        private static int Speed = 20; 
         
 
         public static void Road_Paint(object sender, PaintEventArgs e)

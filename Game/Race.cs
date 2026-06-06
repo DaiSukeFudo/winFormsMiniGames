@@ -10,8 +10,9 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
+using static Game.Collision;
 using static System.Math;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Game
@@ -19,45 +20,28 @@ namespace Game
  
     public partial class Race : Form
     {
-        private static Timer gameTimer;
+
         private Label bitcoinCounterLabel;
         public Race()
         {
             InitializeComponent();
 
-            this.DoubleBuffered = true;
-            timer.Interval = 33;
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
-
+            
             this.DoubleBuffered = true;
             this.KeyPreview = true;
-            gameTimer = timer;
 
             
-            CreateBitcoinCounter();
+
+            Bitcoin.CreateBitcoinCounter(this);
 
             
-            Collision.Initialize(this);
+            Initialize(this);
 
             
-            Collision.GameStats.BitcoinCount = 0;
+            GameStats.BitcoinCount = 0;
             UpdateBitcoinLabel(0);
         }
 
-
-        private void CreateBitcoinCounter()
-        {
-            bitcoinCounterLabel = new Label();
-            bitcoinCounterLabel.Text = "Монетки: 0";
-            bitcoinCounterLabel.Font = new Font("Arial", 16, FontStyle.Bold);
-            bitcoinCounterLabel.ForeColor = Color.Gold;
-            bitcoinCounterLabel.BackColor = Color.Transparent;
-            bitcoinCounterLabel.Size = new Size(150, 40);
-            bitcoinCounterLabel.Location = new Point(10, 10);
-            bitcoinCounterLabel.Parent = this;
-            bitcoinCounterLabel.BringToFront();
-            this.Controls.Add(bitcoinCounterLabel);
-        }
 
         
         public void UpdateBitcoinLabel(int count)
@@ -78,17 +62,19 @@ namespace Game
 
         public void RestartGame()
         {
-            
+
             Road.Reset();
 
-            
             Player.Reset();
 
-            
             Enemy.Reset();
 
+            Bitcoin.Reset();
+
             
+
             timer.Enabled = true;
+
         }
 
 
@@ -121,15 +107,43 @@ namespace Game
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            Collecting_Bitcoin();
+            
+            if (Collision_Detection(Player.GetRect(), Enemy.GetRect()))
+            {
+                StopGame();
+                DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
+                                                       "Game Over",
+                                                       MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {   
+                    RestartGame();
+                }
+
+                else
+                {
+                    System.Windows.Forms.Application.Restart();
+                }
+            }
+
+            
+
             Road.Move();
             Player.Move();
             Enemy.Move();
             Bitcoin.Move();
-            Collision.Collision_Detection();
-            Collision.Collecting_Bitcoin();
+
+
+
+  
+             
 
             this.Invalidate();     
         }
+
+
+        
     }
 }
 
