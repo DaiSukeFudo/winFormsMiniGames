@@ -25,25 +25,19 @@ namespace Game
         public Race()
         {
             InitializeComponent();
-
-            
+         
             this.DoubleBuffered = true;
             this.KeyPreview = true;
-
-            
-
+     
             Bitcoin.CreateBitcoinCounter(this);
-
             
             Initialize(this);
-
-            
+     
             GameStats.BitcoinCount = 0;
             UpdateBitcoinLabel(0);
         }
 
-
-        
+  
         public void UpdateBitcoinLabel(int count)
         {
             if (bitcoinCounterLabel != null && !bitcoinCounterLabel.IsDisposed)
@@ -60,21 +54,14 @@ namespace Game
             }
         }
 
+
         public void RestartGame()
         {
-
             Road.Reset();
-
             Player.Reset();
-
             Enemy.Reset();
-
-            Bitcoin.Reset();
-
-            
-
+            Bitcoin.Reset();   
             timer.Enabled = true;
-
         }
 
 
@@ -134,16 +121,13 @@ namespace Game
             Enemy.Move();
             Bitcoin.Move();
 
-
-
-  
-             
-
             this.Invalidate();     
         }
 
-
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Restart();
+        }
     }
 }
 

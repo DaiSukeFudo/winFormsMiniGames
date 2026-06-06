@@ -35,6 +35,7 @@
             this.Enemy1 = new System.Windows.Forms.PictureBox();
             this.Enemy2 = new System.Windows.Forms.PictureBox();
             this.bitoc = new System.Windows.Forms.PictureBox();
+            this.exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Road2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Enemy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Enemy2)).BeginInit();
@@ -54,7 +55,7 @@
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 1;
+            this.timer.Interval = 6;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // Enemy1
@@ -90,12 +91,23 @@
             this.bitoc.TabIndex = 5;
             this.bitoc.TabStop = false;
             // 
+            // exit
+            // 
+            this.exit.Location = new System.Drawing.Point(703, 12);
+            this.exit.Name = "exit";
+            this.exit.Size = new System.Drawing.Size(69, 22);
+            this.exit.TabIndex = 6;
+            this.exit.Text = "exit";
+            this.exit.UseVisualStyleBackColor = true;
+            this.exit.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Race
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.exit);
             this.Controls.Add(this.bitoc);
             this.Controls.Add(this.Enemy2);
             this.Controls.Add(this.Enemy1);
@@ -122,6 +134,7 @@
         private System.Windows.Forms.PictureBox Enemy2;
         private System.Windows.Forms.PictureBox bitoc;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Button exit;
     }
 }
 

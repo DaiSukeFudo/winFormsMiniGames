@@ -16,7 +16,7 @@ namespace Game
     {
         private static Timer timer = new Timer();
 
-        private static bool isColliding = false;
+        //private static bool isColliding = false;
         private static Race raceForm;
 
 
@@ -58,20 +58,17 @@ namespace Game
 
                     
                  UpdateBitcoinCounter();
-
-                    
+            
                  Bitcoin.Respawn();
             }
             
         }
 
 
-
         public static void Initialize(Race form)
         {
             raceForm = form;
         }
-
 
 
         private static void UpdateBitcoinCounter()
