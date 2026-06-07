@@ -1,18 +1,7 @@
 ﻿using System;
-//using System.Collections.Generic;
-//using System.ComponentModel;
-//using System.Data;
-//using System.Diagnostics;
-//using System.Drawing;
-//using System.Drawing.Drawing2D;
-//using System.Linq;
-//using System.Media;
-//using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Game.Collision;
-//using static System.Math;
-//using static System.Net.Mime.MediaTypeNames;
+
 
 
 namespace Game
@@ -33,7 +22,6 @@ namespace Game
             
             Initialize(this);
      
-            //GameStats.BitcoinCount = 0;
             UpdateBitcoinLabel(0);
         }
 
@@ -93,12 +81,12 @@ namespace Game
 
 
         private void timer_Tick(object sender, EventArgs e)
-        {
-            //Collecting_Bitcoin();
-            
+        { 
             if (Collision_Detection(Player.GetRect(), Enemy.GetRect()))
             {
                 StopGame();
+
+                Sound.PlayExplosionWithStopMusic();
                 DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
                                                        "Game Over",
                                                        MessageBoxButtons.YesNo);

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Media;
 
 namespace Game
@@ -11,6 +7,7 @@ namespace Game
     {
         static SoundPlayer collectB = new SoundPlayer(Properties.Resources.collectBitcoin);
         static SoundPlayer musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
+        static SoundPlayer explosionSound = new SoundPlayer(Properties.Resources.explosion);
         public static void BitcoinCollect()
         {
             collectB.Play();
@@ -19,6 +16,10 @@ namespace Game
         {
             musicMain.Play();
         }
-
+        public static void PlayExplosionWithStopMusic()
+        {
+            musicMain.Stop();
+            explosionSound.Play();
+        }
     }
 }

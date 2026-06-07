@@ -1,10 +1,5 @@
 ﻿using System;
-//using System.Collections.Generic;
 using System.Drawing;
-//using System.Linq;
-//using System.Runtime.CompilerServices;
-//using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Game
@@ -15,7 +10,6 @@ namespace Game
         private static int y = 500;
         private static int car_speed = 15;
 
-        // movement
         private static bool Up = false;
         private static bool Down = false;
         private static bool isLeft = false;
@@ -104,7 +98,6 @@ namespace Game
             isRight = false;
             Up = false;
             Down = false;
-            //rect = new Rectangle(x, y, 128, 128);
         }
 
     }
