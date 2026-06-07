@@ -34,35 +34,34 @@ namespace Game
 
 
 
-        public static class GameStats
-        {
-            public static int BitcoinCount { get; set; } = 0;
-        }
+        //public static class GameStats
+        //{
+        //    public static int BitcoinCount { get; set; } = 0;
+        //}
 
 
 
 
-        public static void Collecting_Bitcoin()
-        {
+        //public static void Collecting_Bitcoin()
+        //{
             
-            Rectangle playerRect = Player.GetRect();
-            Rectangle bitcoinRect = Bitcoin.GetRect();
+        //    Rectangle playerRect = Player.GetRect();
+        //    Rectangle bitcoinRect = Bitcoin.GetRect();
 
-            if (playerRect.IntersectsWith(bitcoinRect))
-            {
+        //    if (playerRect.IntersectsWith(bitcoinRect))
+        //    {
                     
-                 GameStats.BitcoinCount++;
+        //         GameStats.BitcoinCount++;
+      
+        //         Bitcoin.Collect();
 
                     
-                 Bitcoin.Collect();
-
-                    
-                 UpdateBitcoinCounter();
+        //         UpdateBitcoinCounter();
             
-                 Bitcoin.Respawn();
-            }
+        //         Bitcoin.Respawn();
+        //    }
             
-        }
+        //}
 
 
         public static void Initialize(Race form)
@@ -71,13 +70,13 @@ namespace Game
         }
 
 
-        private static void UpdateBitcoinCounter()
-        {
-            if (raceForm != null)
-            {
-                raceForm.UpdateBitcoinLabel(GameStats.BitcoinCount);
-            }
-        }
+        //private static void UpdateBitcoinCounter()
+        //{
+        //    if (raceForm != null)
+        //    {
+        //        raceForm.UpdateBitcoinLabel(GameStats.BitcoinCount);
+        //    }
+        //}
 
     }
 }

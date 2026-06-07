@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+//using System.Linq;
+//using System.Security.Cryptography;
+//using System.Text;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Game.Collision;
+//using static Game.Collision;
 
 namespace Game
 {
@@ -15,11 +15,11 @@ namespace Game
 
         private static int x = 220;
         private static int y = -100;
-        private static int bitok_speed = 20;
+        private static int bitok_speed = 10;
 
         private static Random random = new Random();
-        private static bool isActive = true;
 
+        private static int countOfBitcoins = 0;
 
         private static int width = 64;
         private static int height = 32;
@@ -33,6 +33,7 @@ namespace Game
             rect = new Rectangle(x, y, width, height);
             return rect;
         }
+
 
         public static void Move()
         {
@@ -48,10 +49,8 @@ namespace Game
 
         public static void Respawn()
         {
-            isActive = true;
             y = random.Next(-500, -50); 
-            x = random.Next(200, 540);   
-            
+            x = random.Next(200, 540);       
         }
 
 
@@ -59,26 +58,28 @@ namespace Game
         {
             bitcoinCounterLabel = new Label();
 
-            bitcoinCounterLabel.Location = new Point(5, 10);
-            bitcoinCounterLabel.Size = new Size(150, 30);
-            bitcoinCounterLabel.Font = new Font("Arial", 12, FontStyle.Bold);
-            bitcoinCounterLabel.ForeColor = Color.Gold;
-            bitcoinCounterLabel.BackColor = Color.Transparent;
+            //bitcoinCounterLabel.Location = new Point(5, 10);
+            //bitcoinCounterLabel.Size = new Size(150, 30);
+            //bitcoinCounterLabel.Font = new Font("Arial", 12, FontStyle.Bold);
+            //bitcoinCounterLabel.ForeColor = Color.Gold;
+            //bitcoinCounterLabel.BackColor = Color.Transparent;
+            //bitcoinCounterLabel.Parent = form;
 
-            bitcoinCounterLabel.Parent = form;
             bitcoinCounterLabel.BringToFront();
             form.Controls.Add(bitcoinCounterLabel);
 
-            bitcoinCounterLabel.Text = $"bitcoins: {GameStats.BitcoinCount}";
+            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
         }
-
 
 
         public static void Collect()
         {
-            isActive = false;
+            System.Diagnostics.Debug.WriteLine("collect" + bitcoinCounterLabel.Text);
+            countOfBitcoins++;
+            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
+            bitcoinCounterLabel.Update();
+            Respawn();
         }
-
 
 
         public static void Bitok_Print(object sender, PaintEventArgs e)
@@ -87,13 +88,12 @@ namespace Game
         }
 
 
-
         public static void Reset()
         {
-            isActive = true;
-            x = random.Next(200, 540);
-            y = random.Next(-500, -50);
-            GameStats.BitcoinCount = 0;
+            Respawn();
+            countOfBitcoins = 0;
+            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
+            bitcoinCounterLabel.Update();
         }
     }
 }

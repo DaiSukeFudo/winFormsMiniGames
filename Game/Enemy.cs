@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Game
 {
     internal class Enemy
     {
-        private static int enemy_speed = 30;
+        private static int enemy_speed = 20;
 
         private static int x = 400;
         private static int y = -100;

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+//using System.Linq;
+//using System.Runtime.CompilerServices;
+//using System.Text;
+//using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Game
@@ -13,7 +13,7 @@ namespace Game
     {
         private static int x = 400;
         private static int y = 500;
-        private static int car_speed = 20;
+        private static int car_speed = 15;
 
         // movement
         private static bool Up = false;
@@ -23,8 +23,8 @@ namespace Game
 
         private const int Allowance_Left = 200;
         private const int Allowance_Right = 540;
-        private const int Allowance_Up = 100;
-        private const int Allowance_Down = 720;
+        private const int Allowance_Up = 20;
+        private const int Allowance_Down = 530;
 
 
         private static Random rnd = new Random();
