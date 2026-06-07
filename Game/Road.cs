@@ -1,11 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Diagnostics;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-using System.Windows.Forms;
-//using System.Drawing;
+﻿using System.Windows.Forms;
 
 
 namespace Game
@@ -31,6 +24,7 @@ namespace Game
             e.Graphics.ResetClip();
 
         }
+
         public static void Move()
         {
             y += Speed;
@@ -49,6 +43,5 @@ namespace Game
             y = 0;
             start_y = -600;
         }
-
     }
 }

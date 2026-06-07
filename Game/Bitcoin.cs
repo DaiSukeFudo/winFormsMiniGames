@@ -1,12 +1,7 @@
 ﻿using System;
-//using System.Collections.Generic;
 using System.Drawing;
-//using System.Linq;
-//using System.Security.Cryptography;
-//using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
-//using static Game.Collision;
+
 
 namespace Game
 {
@@ -57,13 +52,6 @@ namespace Game
         public static void CreateBitcoinCounter(Race form)
         {
             bitcoinCounterLabel = new Label();
-
-            //bitcoinCounterLabel.Location = new Point(5, 10);
-            //bitcoinCounterLabel.Size = new Size(150, 30);
-            //bitcoinCounterLabel.Font = new Font("Arial", 12, FontStyle.Bold);
-            //bitcoinCounterLabel.ForeColor = Color.Gold;
-            //bitcoinCounterLabel.BackColor = Color.Transparent;
-            //bitcoinCounterLabel.Parent = form;
 
             bitcoinCounterLabel.BringToFront();
             form.Controls.Add(bitcoinCounterLabel);

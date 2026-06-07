@@ -1,10 +1,5 @@
 ﻿using System;
-//using System.Collections.Generic;
 using System.Drawing;
-//using System.Linq;
-//using System.Runtime.CompilerServices;
-//using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Game
@@ -26,8 +21,6 @@ namespace Game
         private const int Allowance_Up = 20;
         private const int Allowance_Down = 530;
 
-
-        private static Random rnd = new Random();
 
         private static int width = 64;
         private static int height = 64;
@@ -104,7 +97,6 @@ namespace Game
             isRight = false;
             Up = false;
             Down = false;
-            //rect = new Rectangle(x, y, 128, 128);
         }
 
     }

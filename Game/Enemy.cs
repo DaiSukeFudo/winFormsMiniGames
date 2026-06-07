@@ -1,9 +1,5 @@
 ﻿using System;
-//using System.Collections.Generic;
 using System.Drawing;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Game
@@ -15,10 +11,7 @@ namespace Game
         private static int x = 400;
         private static int y = -100;
 
-        
-
         private static Random random1 = new Random();
-
 
         private static int width = 64;
         private static int height = 64;
@@ -63,7 +56,6 @@ namespace Game
         {
             x = 400;
             y = -100;
-            //rect = new Rectangle(x, y, 100, 100);
         }
 
     }
