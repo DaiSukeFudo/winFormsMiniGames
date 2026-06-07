@@ -73,7 +73,7 @@ namespace Game
 
         public static void Bitok_Print(object sender, PaintEventArgs e)
         {
-                e.Graphics.DrawImage(Properties.Resources.bitcoin, x, y, width, height);
+            e.Graphics.DrawImage(Properties.Resources.bitcoin, x, y, width, height);
         }
 
 

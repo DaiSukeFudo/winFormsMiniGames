@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using static Game.Collision;
 
 
+
 namespace Game
 {
  
@@ -81,10 +82,13 @@ namespace Game
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            //Collecting_Bitcoin();
             
             if (Collision_Detection(Player.GetRect(), Enemy.GetRect()))
             {
                 StopGame();
+
+                Sound.PlayExplosionWithStopMusic();
                 DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
                                                        "Game Over",
                                                        MessageBoxButtons.YesNo);

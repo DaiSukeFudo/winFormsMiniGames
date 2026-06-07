@@ -1,14 +1,14 @@
-﻿using System.Media;
+﻿using System;
+using System.Media;
 
 
 namespace Game
 {
     internal class Sound
     {
-
-        private static int mainVolume = 1;
-        private static SoundPlayer collectB = new SoundPlayer(Properties.Resources.collectBitcoin);
-        private static SoundPlayer musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
+        static SoundPlayer collectB = new SoundPlayer(Properties.Resources.collectBitcoin);
+        static SoundPlayer musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
+        static SoundPlayer explosionSound = new SoundPlayer(Properties.Resources.explosion);
         public static void BitcoinCollect()
         {
             
@@ -18,6 +18,10 @@ namespace Game
         {
             musicMain.Play();
         }
-
+        public static void PlayExplosionWithStopMusic()
+        {
+            musicMain.Stop();
+            explosionSound.Play();
+        }
     }
 }

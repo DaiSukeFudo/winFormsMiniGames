@@ -10,7 +10,6 @@ namespace Game
         private static int y = 500;
         private static int car_speed = 15;
 
-        // movement
         private static bool Up = false;
         private static bool Down = false;
         private static bool isLeft = false;
