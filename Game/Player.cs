@@ -6,6 +6,9 @@ namespace Game
 {
     internal class Player
     {
+        private static Image playerImage = Properties.Resources.car;
+
+
         private static int x = 400;
         private static int y = 500;
         private static int car_speed = 15;
@@ -84,7 +87,7 @@ namespace Game
 
         public static void Player_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.car, Player.GetX(), Player.GetY(), width, height);
+            e.Graphics.DrawImage(playerImage, Player.GetX(), Player.GetY(), width, height);
         }
 
 

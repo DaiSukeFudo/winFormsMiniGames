@@ -7,6 +7,8 @@ namespace Game
 {
     internal class Bitcoin
     {
+        private static Image bitcoinImage = Properties.Resources.bitcoin;
+
 
         private static int x = 220;
         private static int y = -100;
@@ -73,7 +75,7 @@ namespace Game
 
         public static void Bitok_Print(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.bitcoin, x, y, width, height);
+            e.Graphics.DrawImage(bitcoinImage, x, y, width, height);
         }
 
 

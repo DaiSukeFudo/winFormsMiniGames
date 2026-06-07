@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 
@@ -7,7 +8,9 @@ namespace Game
 {
     internal class Road
     {
-        
+        private static Image roadImage = Properties.Resources.road;
+
+
         private static int x = 100;
         private static int y = 0;
 
@@ -21,8 +24,8 @@ namespace Game
         public static void Road_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.SetClip(e.ClipRectangle);
-            e.Graphics.DrawImage(Properties.Resources.road, x, y, 600, 600);
-            e.Graphics.DrawImage(Properties.Resources.road, x, start_y, 600, 600);
+            e.Graphics.DrawImage(roadImage, x, y, 600, 600);
+            e.Graphics.DrawImage(roadImage, x, start_y, 600, 600);
             e.Graphics.ResetClip();
 
         }

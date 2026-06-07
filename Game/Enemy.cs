@@ -6,6 +6,9 @@ namespace Game
 {
     internal class Enemy
     {
+
+        private static Image enemyImage = Properties.Resources.enemy;
+
         private static int enemy_speed = 20;
 
         private static int x;
@@ -54,7 +57,12 @@ namespace Game
 
         public static void Enemy_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.enemy, GetX(), GetY(), width + 10, height + 10);
+            e.Graphics.DrawImage(enemyImage, GetX(), GetY(), width + 10, height + 10);
+            e.Graphics.DrawImage(enemyImage, GetX(), GetY() + 50, width + 10, height + 10);
+            e.Graphics.DrawImage(enemyImage, GetX(), GetY() + 100, width + 10, height + 10);
+            e.Graphics.DrawImage(enemyImage, GetX(), GetY() - 50, width + 10, height + 10);
+            e.Graphics.DrawImage(enemyImage, GetX(), GetY() - 100, width + 10, height + 10);
+
         }
 
 

@@ -9,8 +9,6 @@ namespace Game
  
     public partial class Race : Form
     {
-
-        private Label bitcoinCounterLabel;
         public Race()
         {
             InitializeComponent();
@@ -21,28 +19,9 @@ namespace Game
             Bitcoin.CreateBitcoinCounter(this);
             
             Initialize(this);
-     
-            UpdateBitcoinLabel(0);
         }
 
-  
-        public void UpdateBitcoinLabel(int count)
-        {
-            if (bitcoinCounterLabel != null && !bitcoinCounterLabel.IsDisposed)
-            {
-                if (bitcoinCounterLabel.InvokeRequired)
-                {
-                    bitcoinCounterLabel.Invoke(new Action(() =>
-                        bitcoinCounterLabel.Text = $"Монетки: {count}"));
-                }
-                else
-                {
-                    bitcoinCounterLabel.Text = $"Монетки: {count}";
-                }
-            }
-        }
-
-
+ 
         public void RestartGame()
         {
             Road.Reset();
@@ -81,9 +60,7 @@ namespace Game
 
 
         private void timer_Tick(object sender, EventArgs e)
-        {
-            //Collecting_Bitcoin();
-            
+        {            
             if (Collision_Detection(Player.GetRect(), Enemy.GetRect()))
             {
                 StopGame();
@@ -106,7 +83,6 @@ namespace Game
 
             if (Collision_Detection(Player.GetRect(), Bitcoin.GetRect()))
             {
-
                 Bitcoin.Collect();
             }
 
