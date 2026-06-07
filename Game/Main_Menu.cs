@@ -6,6 +6,7 @@
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
 namespace Game
@@ -14,8 +15,11 @@ namespace Game
     {
         public Main_Menu()
         {
+
             InitializeComponent();
             this.DoubleBuffered = true;
+
+            Sound.music();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -45,5 +49,16 @@ namespace Game
             Invalidate();
         }
 
+
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            using (Settings settings = new Settings())
+            {
+                this.Hide();
+                settings.ShowDialog();
+                this.Show();
+            }
+        }
     }
 }

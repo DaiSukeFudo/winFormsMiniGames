@@ -74,6 +74,7 @@ namespace Game
 
         public static void Collect()
         {
+            Sound.BitcoinCollect();
             System.Diagnostics.Debug.WriteLine("collect" + bitcoinCounterLabel.Text);
             countOfBitcoins++;
             bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
