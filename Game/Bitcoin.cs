@@ -9,7 +9,6 @@ namespace Game
     {
         private static Image bitcoinImage = Properties.Resources.bitcoin;
 
-
         private static int x = 220;
         private static int y = -100;
         private static int bitok_speed = 10;
@@ -22,8 +21,17 @@ namespace Game
         private static int height = 32;
         private static Rectangle rect;
 
-
         private static Label bitcoinCounterLabel;
+
+        static Bitcoin()
+        {
+            bitcoinCounterLabel = new Label();
+            bitcoinCounterLabel.Font = new Font("Arial", 14);
+            bitcoinCounterLabel.ForeColor = Color.Gold;
+            bitcoinCounterLabel.Location = new Point(0, 5);
+            bitcoinCounterLabel.BringToFront();
+            bitcoinCounterLabel.AutoSize = true;
+        }
 
         public static Rectangle GetRect()
         {
@@ -53,11 +61,7 @@ namespace Game
 
         public static void CreateBitcoinCounter(Race form)
         {
-            bitcoinCounterLabel = new Label();
-
-            bitcoinCounterLabel.BringToFront();
             form.Controls.Add(bitcoinCounterLabel);
-
             bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
         }
 
@@ -65,7 +69,6 @@ namespace Game
         public static void Collect()
         {
             Sound.BitcoinCollect();
-            System.Diagnostics.Debug.WriteLine("collect" + bitcoinCounterLabel.Text);
             countOfBitcoins++;
             bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
             bitcoinCounterLabel.Update();
@@ -75,7 +78,7 @@ namespace Game
 
         public static void Bitok_Print(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(bitcoinImage, x, y, width, height);
+            e.Graphics.DrawImage(bitcoinImage, rect);
         }
 
 

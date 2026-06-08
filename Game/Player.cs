@@ -34,16 +34,6 @@ namespace Game
             return rect;
         }
 
-        public static int GetX()
-        {
-            return x;
-        }
-
-        public static int GetY()
-        {
-            return y;
-        }
-
         public static void _KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -87,7 +77,7 @@ namespace Game
 
         public static void Player_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(playerImage, Player.GetX(), Player.GetY(), width, height);
+            e.Graphics.DrawImage(playerImage, rect);
         }
 
 

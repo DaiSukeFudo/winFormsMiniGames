@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using static Game.Collision;
 
@@ -9,21 +10,47 @@ namespace Game
  
     public partial class Race : Form
     {
-        public Race()
+        private static int distance = 0;
+        private static Label distUI;
+
+        private static Form main_menu;
+      
+        public Race(Form mm)
         {
             InitializeComponent();
-         
-            this.DoubleBuffered = true;
-            this.KeyPreview = true;
-     
+
+            System.Diagnostics.Debug.WriteLine("Race init");
+            main_menu = mm;
+            DoubleBuffered = true;
+            KeyPreview = true;
+
+            distUI = new Label();
+            distUI.Font = new Font("Arial", 14);
+            distUI.ForeColor = Color.GreenYellow;
+            distUI.AutoSize= true;
+            distUI.Enabled=true;
+            distUI.Location = new Point(0, 30);
+           
             Bitcoin.CreateBitcoinCounter(this);
-            
+
+            Controls.Add(distUI);
+            distUI.Text = $"score: {distance / 5}";
+
+            timer.Interval = 25;
             Initialize(this);
+
+            
         }
 
- 
+        public static int GetDistance()
+        {
+            return distance;
+        }
+
         public void RestartGame()
         {
+            timer.Enabled = false;
+            distance = 0;
             Road.Reset();
             Player.Reset();
             Enemy.Reset();
@@ -60,28 +87,40 @@ namespace Game
 
 
         private void timer_Tick(object sender, EventArgs e)
-        {            
-            if (Collision_Detection(Player.GetRect(), Enemy.GetRect()))
+        {
+            
+            distance++;
+            
+            distUI.Text = $"score: {distance / 5}";
+            distUI.Update();
+          
+
+
+
+            if (CollisionDetection(Player.GetRect(), Enemy.GetRect()))
             {
                 StopGame();
-
                 Sound.PlayExplosionWithStopMusic();
                 DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
                                                        "Game Over",
                                                        MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
-                {   
+                {
+                    
                     RestartGame();
                 }
 
                 else
                 {
-                    System.Windows.Forms.Application.Restart();
+                    RestartGame();
+                    main_menu.Show();
+                    Close();
+                    return;
                 }
             }
 
 
-            if (Collision_Detection(Player.GetRect(), Bitcoin.GetRect()))
+            if (CollisionDetection(Player.GetRect(), Bitcoin.GetRect()))
             {
                 Bitcoin.Collect();
             }
@@ -92,12 +131,16 @@ namespace Game
             Enemy.Move();
             Bitcoin.Move();
 
-            this.Invalidate();     
+
+            Invalidate();     
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Application.Restart();
+            Application.Restart();
         }
+
+       
+
     }
 }

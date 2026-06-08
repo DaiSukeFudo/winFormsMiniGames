@@ -27,7 +27,6 @@ namespace Game
             e.Graphics.DrawImage(roadImage, x, y, 600, 600);
             e.Graphics.DrawImage(roadImage, x, start_y, 600, 600);
             e.Graphics.ResetClip();
-
         }
 
         public static void Move()

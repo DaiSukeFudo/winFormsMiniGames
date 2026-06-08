@@ -5,23 +5,30 @@ namespace Game
 {
     public partial class Main_Menu : Form
     {
+
+
         public Main_Menu()
         {
 
             InitializeComponent();
             this.DoubleBuffered = true;
-
             Sound.music();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (Race game_form = new Race())
-            {
-                this.Hide();
-                game_form.ShowDialog();
-                this.Show();
-            }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            Race f2 = new Race(this);
+            this.Hide();
+            f2.ShowDialog();
+            this.Show();
+
+            
+            
+
+            
             
         }
 

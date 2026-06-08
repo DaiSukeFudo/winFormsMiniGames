@@ -12,12 +12,12 @@ namespace Game
         private static int enemy_speed = 20;
 
         private static int x;
-        private static int y = -100;
+        private static int y = -500;
 
 
         static Enemy()
         {
-            x = random.Next(200, 330);
+            x = random.Next(200, 540);
         }
 
         private static Random random = new Random();
@@ -25,6 +25,7 @@ namespace Game
 
         private static int width = 50;
         private static int height = 50;
+
         private static Rectangle rect;
 
         public static Rectangle GetRect()
@@ -33,23 +34,13 @@ namespace Game
             return rect;
         }
 
-        public static int GetX()
-        {
-            return x;
-        }
-
-        public static int GetY()
-        {
-            return y;
-        }
-
         public static void Move()
         {
             y += enemy_speed;
 
             if (y > 600)
             {
-                y = -200;
+                y = -height;
                 x = random.Next(220, 520);
             }
             rect = new Rectangle(x, y, width, height);
@@ -57,19 +48,14 @@ namespace Game
 
         public static void Enemy_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(enemyImage, GetX(), GetY(), width + 10, height + 10);
-            e.Graphics.DrawImage(enemyImage, GetX(), GetY() + 50, width + 10, height + 10);
-            e.Graphics.DrawImage(enemyImage, GetX(), GetY() + 100, width + 10, height + 10);
-            e.Graphics.DrawImage(enemyImage, GetX(), GetY() - 50, width + 10, height + 10);
-            e.Graphics.DrawImage(enemyImage, GetX(), GetY() - 100, width + 10, height + 10);
-
+            e.Graphics.DrawImage(enemyImage, x, y, width + 10, height + 10);
         }
 
 
         public static void Reset()
         {
-            x = 400;
-            y = -100;
+            x = random.Next(200, 540);
+            y = -500;
         }
 
     }

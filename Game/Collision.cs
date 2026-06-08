@@ -12,7 +12,7 @@ namespace Game
         private static Race raceForm;
 
 
-        public static bool Collision_Detection(Rectangle hitbox1, Rectangle hitbox2)
+        public static bool CollisionDetection(Rectangle hitbox1, Rectangle hitbox2)
         {
             if (hitbox1.IntersectsWith(hitbox2))
             {
