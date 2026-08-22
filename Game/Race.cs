@@ -55,6 +55,7 @@ namespace Game
             Player.Reset();
             Enemy.Reset();
             Bitcoin.Reset();   
+            Bonuses.Reset();
             timer.Enabled = true;
         }
 
@@ -83,6 +84,7 @@ namespace Game
             Bitcoin.Bitok_Print(sender, e);
             Enemy.Enemy_Paint(sender, e);
             Player.Player_Paint(sender, e);
+            Bonuses.Bonuses_Paint(sender, e);
         }
 
 
@@ -141,6 +143,7 @@ namespace Game
             Player.Move();
             Enemy.Move();
             Bitcoin.Move();
+            Bonuses.Move();
 
             Invalidate();
         }

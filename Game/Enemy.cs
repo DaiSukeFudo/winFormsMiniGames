@@ -9,6 +9,8 @@ namespace Game
 
         private static Image enemyImage = Properties.Resources.enemy;
 
+        
+
         private static int enemy_speed = 20;
 
         private static int x;
@@ -55,6 +57,7 @@ namespace Game
         public static void Enemy_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(enemyImage, x, y, width + 10, height + 10);
+            
         }
 
 

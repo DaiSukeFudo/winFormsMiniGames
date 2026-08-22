@@ -71,6 +71,7 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bonuses.cs" />
     <Compile Include="Sound.cs" />
     <EmbeddedResource Include="Race.resx">
       <DependentUpon>Race.cs</DependentUpon>
