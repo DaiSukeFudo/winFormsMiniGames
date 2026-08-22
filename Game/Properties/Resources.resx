@@ -136,6 +136,9 @@
   <data name="explosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\explosion-after-a-car-accident.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="health" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\health;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="mainMenuMusic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mainMenuMusic.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

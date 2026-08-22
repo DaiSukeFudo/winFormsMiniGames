@@ -8,6 +8,7 @@ namespace Game
     {
         private static Image playerImage = Properties.Resources.car;
 
+        private static Image heartImage = Properties.Resources.health;
 
         private static int x = 400;
         private static int y = 500;
@@ -27,6 +28,19 @@ namespace Game
         private static int width = 64;
         private static int height = 64;
         private static Rectangle rect;
+
+
+        private static int lives = 3;
+        private static bool isInvincible = false;
+        private static Timer invincibilityTimer = new Timer();
+        private static int blinkCounter = 0;
+
+        static Player()
+        {
+            invincibilityTimer.Interval = 50;
+            invincibilityTimer.Tick += InvincibilityTimer_Tick;
+        }
+
 
         public static Rectangle GetRect()
         {
@@ -77,10 +91,76 @@ namespace Game
 
         public static void Player_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(playerImage, rect);
+            if (!isInvincible || blinkCounter % 2 == 0)
+            {
+                e.Graphics.DrawImage(playerImage, rect);
+            }
+
+            
+            DrawHearts(e);
+        }
+
+        public static void DrawHearts(PaintEventArgs e)
+        {
+            int heartSize = 30;
+            int startX = 0;
+            int startY = 60;
+            int spacing = 40;
+
+            for (int i = 0; i < 3; i++)
+            {
+                int xPos = startX + i * spacing;
+                int yPos = startY;
+
+                if (i < lives)
+                {
+                   
+                    e.Graphics.DrawImage(heartImage, xPos, yPos, heartSize, heartSize);
+                }
+                else
+                {
+                    
+                    e.Graphics.DrawRectangle(Pens.Gray, xPos, yPos, heartSize, heartSize);
+                    e.Graphics.DrawString("❤", new Font("Arial", 14), Brushes.Gray, xPos + 5, yPos + 5);
+                }
+            }
         }
 
 
+
+
+        public static bool LoseLife()
+        {
+            if (isInvincible) return false; 
+
+            lives--;
+            if (lives <= 0)
+            {
+                lives = 0;
+                return true; 
+            }
+
+            
+            isInvincible = true;
+            blinkCounter = 0;
+            invincibilityTimer.Start();
+
+            return false;
+        }
+
+       
+        private static void InvincibilityTimer_Tick(object sender, EventArgs e)
+        {
+            blinkCounter++;
+            if (blinkCounter > 40) 
+            {
+                isInvincible = false;
+                invincibilityTimer.Stop();
+                blinkCounter = 0;
+            }
+        }
+
+       
         public static void Reset()
         {
             x = 400;
@@ -89,7 +169,20 @@ namespace Game
             isRight = false;
             Up = false;
             Down = false;
+            lives = 3;
+            isInvincible = false;
+            invincibilityTimer.Stop();
+            blinkCounter = 0;
         }
 
+       
+        public static int GetLives()
+        {
+            return lives;
+        }
     }
+
+        
+
+    
 }

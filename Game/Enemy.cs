@@ -34,11 +34,17 @@ namespace Game
             return rect;
         }
 
+        
+
         public static void Move()
         {
+            
             y += enemy_speed;
 
-            if (y > 600)
+            
+
+
+                if (y > 600)
             {
                 y = -height;
                 x = random.Next(220, 520);

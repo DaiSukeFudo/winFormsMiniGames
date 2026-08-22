@@ -93,29 +93,41 @@ namespace Game
             
             distUI.Text = $"score: {distance / 5}";
             distUI.Update();
-          
+
 
 
 
             if (CollisionDetection(Player.GetRect(), Enemy.GetRect()))
             {
-                StopGame();
-                Sound.PlayExplosionWithStopMusic();
-                DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
-                                                       "Game Over",
-                                                       MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+               
+                bool isDead = Player.LoseLife();
+
+                if (isDead)
                 {
                     
-                    RestartGame();
+                    StopGame();
+                    Sound.PlayExplosionWithStopMusic();
+                    DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
+                                                           "Game Over",
+                                                           MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        RestartGame();
+                    }
+                    else
+                    {
+                        RestartGame();
+                        main_menu.Show();
+                        Close();
+                        return;
+                    }
                 }
-
                 else
                 {
-                    RestartGame();
-                    main_menu.Show();
-                    Close();
-                    return;
+                    
+                    Sound.PlayExplosionWithStopMusic();
+                    
+                    Sound.music();
                 }
             }
 
@@ -125,15 +137,14 @@ namespace Game
                 Bitcoin.Collect();
             }
 
-            
             Road.Move();
             Player.Move();
             Enemy.Move();
             Bitcoin.Move();
 
-
-            Invalidate();     
+            Invalidate();
         }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
