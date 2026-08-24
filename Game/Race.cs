@@ -1,56 +1,46 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using static Game.Collision;
 
 
-
 namespace Game
 {
- 
     public partial class Race : Form
     {
-        private static int distance = 0;
-        private static Label distUI;
+        private int distanceScore = 0;
+        private Label distanceUI;
+        private Label bitcoinUI = UIControl.CreateText("bitcoin: 0", new Point(0,5));
 
-        private static Form main_menu;
-      
-        public Race(Form mm)
+        public Race()
         {
             InitializeComponent();
 
-            System.Diagnostics.Debug.WriteLine("Race init");
-            main_menu = mm;
             DoubleBuffered = true;
             KeyPreview = true;
 
-            distUI = new Label();
-            distUI.Font = new Font("Arial", 14);
-            distUI.ForeColor = Color.GreenYellow;
-            distUI.AutoSize= true;
-            distUI.Enabled=true;
-            distUI.Location = new Point(0, 30);
-           
-            Bitcoin.CreateBitcoinCounter(this);
+            distanceUI = new Label();
+            distanceUI.Font = new Font("Arial", 14);
+            distanceUI.ForeColor = Color.GreenYellow;
+            distanceUI.AutoSize = true;
+            distanceUI.Enabled = true;
+            distanceUI.Location = new Point(0, 30);
+            distanceUI.Text = $"score: {distanceScore / 5}";
+            Controls.Add(distanceUI);
 
-            Controls.Add(distUI);
-            distUI.Text = $"score: {distance / 5}";
+            Controls.Add(bitcoinUI);
 
             timer.Interval = 25;
-            Initialize(this);
 
-            
+            Debug.WriteLine("Race init");
         }
 
-        public static int GetDistance()
-        {
-            return distance;
-        }
 
         public void RestartGame()
         {
             timer.Enabled = false;
-            distance = 0;
+            distanceScore = 0;
             Road.Reset();
             Player.Reset();
             Enemy.Reset();
@@ -65,13 +55,13 @@ namespace Game
             timer.Enabled = false;
         }
 
+
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             Player._KeyDown(sender, e);
-            
         }
 
-         
+
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             Player._KeyUp(sender, e);
@@ -90,28 +80,31 @@ namespace Game
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            
-            distance++;
-            
-            distUI.Text = $"score: {distance / 5}";
-            distUI.Update();
+            if (this.IsDisposed || this.Disposing)
+            {
+                return;
+            }
 
-
+            distanceScore++;
+     
+            distanceUI.Text = $"score: {distanceScore / 5}";
+            distanceUI.Update();
 
 
             if (CollisionDetection(Player.GetRect(), Enemy.GetRect()))
             {
-               
                 bool isDead = Player.LoseLife();
 
                 if (isDead)
                 {
-                    
                     StopGame();
-                    Sound.PlayExplosionWithStopMusic();
+                    Sound.PlayExplosion();
+
                     DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
                                                            "Game Over",
-                                                           MessageBoxButtons.YesNo);
+                                                           MessageBoxButtons.YesNo
+                    );
+
                     if (result == DialogResult.Yes)
                     {
                         RestartGame();
@@ -119,20 +112,16 @@ namespace Game
                     else
                     {
                         RestartGame();
-                        main_menu.Show();
                         Close();
+                        Sound.music();
                         return;
                     }
                 }
                 else
-                {
-                    
-                    Sound.PlayExplosionWithStopMusic();
-                    
-                    Sound.music();
+                {     
+                    Sound.PlayExplosion();     
                 }
             }
-
 
             if (CollisionDetection(Player.GetRect(), Bitcoin.GetRect()))
             {
@@ -151,10 +140,16 @@ namespace Game
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Application.Restart();
+
+            if (timer != null)
+            {
+                timer.Enabled = false; // Выключаем
+                timer.Dispose();       // Полностью удаляем таймер из памяти
+            }
+            RestartGame();
+            Dispose();
+            Sound.music();
+            Debug.WriteLine("BUTTON: exit");
         }
-
-       
-
     }
 }

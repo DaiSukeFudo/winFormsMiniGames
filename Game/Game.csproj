@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Bonuses.cs" />
     <Compile Include="Sound.cs" />
+    <Compile Include="UIControl.cs" />
     <EmbeddedResource Include="Race.resx">
       <DependentUpon>Race.cs</DependentUpon>
     </EmbeddedResource>

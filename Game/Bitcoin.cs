@@ -59,12 +59,29 @@ namespace Game
         }
 
 
+        //public static void CreateBitcoinCounter(Race form)
+        //{
+        //    form.Controls.Add(bitcoinCounterLabel);
+        //    bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
+        //}
+
         public static void CreateBitcoinCounter(Race form)
         {
-            form.Controls.Add(bitcoinCounterLabel);
-            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
-        }
+            // Пересоздаем Label заново для новой формы, чтобы избежать ObjectDisposedException
+            Label bitcoinCounterLabel = new Label();
 
+            // Настройте внешний вид (добавьте эти строки, если вам нужно настроить шрифт или цвет)
+            bitcoinCounterLabel.Font = new Font("Arial", 14);
+            bitcoinCounterLabel.ForeColor = Color.GreenYellow;
+            bitcoinCounterLabel.AutoSize = true;
+            bitcoinCounterLabel.Location = new Point(0, 60); // Размещаем чуть ниже distUI, чтобы они не перекрывали друг друга
+
+            // Присваиваем текст
+            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
+
+            // Добавляем созданный Label на текущую форму игры
+            form.Controls.Add(bitcoinCounterLabel);
+        }
 
         public static void Collect()
         {

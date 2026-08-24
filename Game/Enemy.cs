@@ -6,21 +6,17 @@ namespace Game
 {
     internal class Enemy
     {
-
         private static Image enemyImage = Properties.Resources.enemy;
-
-        
-
         private static int enemy_speed = 20;
-
         private static int x;
         private static int y = -500;
 
 
-        static Enemy()
-        {
-            x = random.Next(200, 540);
-        }
+        //static Enemy()
+        //{
+        //    x = random.Next(200, 540);
+        //}
+
 
         private static Random random = new Random();
 
@@ -36,23 +32,19 @@ namespace Game
             return rect;
         }
 
-        
-
+    
         public static void Move()
-        {
-            
+        {       
             y += enemy_speed;
 
-            
-
-
-                if (y > 600)
+            if (y > 600)
             {
                 y = -height;
                 x = random.Next(220, 520);
             }
             rect = new Rectangle(x, y, width, height);
         }
+
 
         public static void Enemy_Paint(object sender, PaintEventArgs e)
         {
@@ -66,6 +58,5 @@ namespace Game
             x = random.Next(200, 540);
             y = -500;
         }
-
     }
 }
