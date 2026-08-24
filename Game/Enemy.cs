@@ -10,21 +10,11 @@ namespace Game
         private static int enemy_speed = 20;
         private static int x;
         private static int y = -500;
-
-
-        //static Enemy()
-        //{
-        //    x = random.Next(200, 540);
-        //}
-
-
         private static Random random = new Random();
-
-
         private static int width = 50;
         private static int height = 50;
-
         private static Rectangle rect;
+
 
         public static Rectangle GetRect()
         {

@@ -8,20 +8,16 @@ namespace Game
     internal class Bitcoin
     {
         private static Image bitcoinImage = Properties.Resources.bitcoin;
-
         private static int x = 220;
         private static int y = -100;
         private static int bitok_speed = 10;
-
         private static Random random = new Random();
-
         private static int countOfBitcoins = 0;
-
         private static int width = 64;
         private static int height = 32;
         private static Rectangle rect;
-
         private static Label bitcoinCounterLabel;
+
 
         static Bitcoin()
         {
@@ -32,6 +28,7 @@ namespace Game
             bitcoinCounterLabel.BringToFront();
             bitcoinCounterLabel.AutoSize = true;
         }
+
 
         public static Rectangle GetRect()
         {

@@ -2,12 +2,12 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+
 namespace Game
 {
     internal class Player
     {
         private static Image playerImage = Properties.Resources.car;
-
         private static Image heartImage = Properties.Resources.health;
 
         private static int x = 400;
@@ -24,7 +24,6 @@ namespace Game
         private const int Allowance_Up = 20;
         private const int Allowance_Down = 530;
 
-
         private static int width = 64;
         private static int height = 64;
         private static Rectangle rect;
@@ -34,6 +33,7 @@ namespace Game
         private static bool isInvincible = false;
         private static Timer invincibilityTimer = new Timer();
         private static int blinkCounter = 0;
+
 
         static Player()
         {

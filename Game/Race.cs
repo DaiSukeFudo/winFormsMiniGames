@@ -113,7 +113,7 @@ namespace Game
                     {
                         RestartGame();
                         Close();
-                        Sound.music();
+                        Sound.PlayMenuMusic();
                         return;
                     }
                 }
@@ -148,7 +148,7 @@ namespace Game
             }
             RestartGame();
             Dispose();
-            Sound.music();
+            Sound.PlayMenuMusic();
             Debug.WriteLine("BUTTON: exit");
         }
     }

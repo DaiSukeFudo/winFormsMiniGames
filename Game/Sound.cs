@@ -15,14 +15,17 @@ namespace Game
             collectB.Play();
         }
 
-        public static void music()
+
+        public static void PlayMenuMusic()
         {
             musicMain.Play();
         }
-        public static void stop_music()
+
+        public static void StopMenuMusic()
         {
             musicMain.Stop();
         }
+
 
         public static void PlayExplosion()
         {
