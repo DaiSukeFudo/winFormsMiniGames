@@ -10,8 +10,10 @@ namespace Game
     public partial class Race : Form
     {
         private int distanceScore = 0;
-        private Label distanceUI;
-        private Label bitcoinUI = UIControl.CreateText("bitcoin: 0", new Point(0,5));
+
+        private Label distanceUI = UIControl.CreateText("score: 0", new Point(0, 30));
+        private Label bitcoinUI = UIControl.CreateText("bitcoin: 0", new Point(0, 5));
+
 
         public Race()
         {
@@ -20,15 +22,7 @@ namespace Game
             DoubleBuffered = true;
             KeyPreview = true;
 
-            distanceUI = new Label();
-            distanceUI.Font = new Font("Arial", 14);
-            distanceUI.ForeColor = Color.GreenYellow;
-            distanceUI.AutoSize = true;
-            distanceUI.Enabled = true;
-            distanceUI.Location = new Point(0, 30);
-            distanceUI.Text = $"score: {distanceScore / 5}";
             Controls.Add(distanceUI);
-
             Controls.Add(bitcoinUI);
 
             timer.Interval = 25;
@@ -44,7 +38,7 @@ namespace Game
             Road.Reset();
             Player.Reset();
             Enemy.Reset();
-            Bitcoin.Reset();   
+            Bitcoin.Reset(bitcoinUI);   
             Bonuses.Reset();
             timer.Enabled = true;
         }
@@ -86,7 +80,7 @@ namespace Game
             }
 
             distanceScore++;
-     
+
             distanceUI.Text = $"score: {distanceScore / 5}";
             distanceUI.Update();
 
@@ -125,7 +119,7 @@ namespace Game
 
             if (CollisionDetection(Player.GetRect(), Bitcoin.GetRect()))
             {
-                Bitcoin.Collect();
+                Bitcoin.Collect(bitcoinUI);
             }
 
             Road.Move();

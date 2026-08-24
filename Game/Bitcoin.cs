@@ -16,18 +16,6 @@ namespace Game
         private static int width = 64;
         private static int height = 32;
         private static Rectangle rect;
-        private static Label bitcoinCounterLabel;
-
-
-        static Bitcoin()
-        {
-            bitcoinCounterLabel = new Label();
-            bitcoinCounterLabel.Font = new Font("Arial", 14);
-            bitcoinCounterLabel.ForeColor = Color.Gold;
-            bitcoinCounterLabel.Location = new Point(0, 5);
-            bitcoinCounterLabel.BringToFront();
-            bitcoinCounterLabel.AutoSize = true;
-        }
 
 
         public static Rectangle GetRect()
@@ -56,37 +44,12 @@ namespace Game
         }
 
 
-        //public static void CreateBitcoinCounter(Race form)
-        //{
-        //    form.Controls.Add(bitcoinCounterLabel);
-        //    bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
-        //}
-
-        public static void CreateBitcoinCounter(Race form)
+        public static void Collect(Label bitcoinLabel)
         {
-            // Пересоздаем Label заново для новой формы, чтобы избежать ObjectDisposedException
-            Label bitcoinCounterLabel = new Label();
-
-            // Настройте внешний вид (добавьте эти строки, если вам нужно настроить шрифт или цвет)
-            bitcoinCounterLabel.Font = new Font("Arial", 14);
-            bitcoinCounterLabel.ForeColor = Color.GreenYellow;
-            bitcoinCounterLabel.AutoSize = true;
-            bitcoinCounterLabel.Location = new Point(0, 60); // Размещаем чуть ниже distUI, чтобы они не перекрывали друг друга
-
-            // Присваиваем текст
-            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
-
-            // Добавляем созданный Label на текущую форму игры
-            form.Controls.Add(bitcoinCounterLabel);
-        }
-
-        public static void Collect()
-        {
+            Respawn();
             Sound.BitcoinCollect();
             countOfBitcoins++;
-            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
-            bitcoinCounterLabel.Update();
-            Respawn();
+            bitcoinLabel.Text = $"bitcoins: {countOfBitcoins}";
         }
 
 
@@ -96,12 +59,12 @@ namespace Game
         }
 
 
-        public static void Reset()
+        public static void Reset(Label bitcoinLabel)
         {
             Respawn();
             countOfBitcoins = 0;
-            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
-            bitcoinCounterLabel.Update();
+            bitcoinLabel.Text = $"bitcoins: {countOfBitcoins}";
+            bitcoinLabel.Update();
         }
     }
 }

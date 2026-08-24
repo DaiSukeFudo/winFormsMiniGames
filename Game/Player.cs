@@ -21,15 +21,16 @@ namespace Game
 
         private const int Allowance_Left = 200;
         private const int Allowance_Right = 540;
-        private const int Allowance_Up = 20;
+        private const int Allowance_Up = 0;
         private const int Allowance_Down = 530;
 
         private static int width = 64;
         private static int height = 64;
         private static Rectangle rect;
 
-        private static int lives = 2;
+        private static int lives = 10;
         private static int currentLives = lives;
+
         private static bool isInvincible = false;
         private static Timer invincibilityTimer = new Timer();
         private static int blinkCounter = 0;
