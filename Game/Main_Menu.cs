@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Game
 {
     public partial class Main_Menu : Form
     {
+        private static Image backgound = Properties.Resources.background;
         public Main_Menu()
         {
             InitializeComponent();
@@ -44,7 +46,7 @@ namespace Game
 
         private void Main_Menu_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.background, 0, 0, this.Size.Width, this.Size.Height);
+            e.Graphics.DrawImage(backgound, 0, 0, this.Size.Width, this.Size.Height);
         }
 
 
@@ -52,6 +54,5 @@ namespace Game
         {
             Invalidate();
         }
-
     }
 }
