@@ -35,6 +35,10 @@ namespace Game
         private static Timer invincibilityTimer = new Timer();
         private static int blinkCounter = 0;
 
+        // Reuse a single Font instance for drawing hearts to avoid allocating a new
+        // Font on every Paint call (prevents GDI handle growth).
+        private static readonly Font heartsFont = new Font("Arial", 14);
+
 
         static Player()
         {
@@ -97,8 +101,6 @@ namespace Game
             {
                 e.Graphics.DrawImage(playerImage, rect);
             }
-
-            
             DrawHearts(e);
         }
 
@@ -122,7 +124,7 @@ namespace Game
                 else
                 {
                     e.Graphics.DrawRectangle(Pens.Gray, xPos, yPos, heartSize, heartSize);
-                    e.Graphics.DrawString("❤", new Font("Arial", 14), Brushes.Gray, xPos + 5, yPos + 5);
+                    e.Graphics.DrawString("❤", heartsFont, Brushes.Gray, xPos + 5, yPos + 5);
                 }
             }
         }
@@ -131,12 +133,16 @@ namespace Game
         public static bool LoseLife()
         {
             if (isInvincible)
-            {
+            {  
                 return false;
             }
+
+            Sound.PlayPlayerExplosion();
             currentLives--;
+
             if (currentLives == 0)
             {
+                Sound.PlayPlayerExplosion();
                 return true; 
             }
             

@@ -10,12 +10,14 @@ namespace Game
 {
     internal class UIControl
     {
+        private static readonly Font defaultLabelFont = new Font("Arial", 14);
+
         public static Label CreateLabel(string text, Point location, Color color)
         {
             Label label = new Label();
             label.Text = text;
             label.Location = location;
-            label.Font = new Font("Arial", 14);
+            label.Font = defaultLabelFont;
             label.ForeColor = color;
 
             label.BringToFront();

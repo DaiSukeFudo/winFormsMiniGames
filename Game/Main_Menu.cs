@@ -23,7 +23,15 @@ namespace Game
             using (Race gameForm = new Race())
             {
                 gameForm.ShowDialog();
-            }   
+            }
+            //using (TestRace gameForm = new TestRace())
+            //{
+            //    gameForm.ShowDialog();
+            //}
+
+
+
+
             Show();
             Debug.WriteLine("Main_Menu: race closed");
         }

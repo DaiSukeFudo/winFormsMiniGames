@@ -11,7 +11,7 @@ namespace Game
     {
         private int distanceScore = 0;
 
-        private Label distanceUI = UIControl.CreateLabel("score: 0", new Point(0, 5), Color.GreenYellow);
+        private Label scoreUI = UIControl.CreateLabel("score: 0", new Point(0, 5), Color.GreenYellow);
         private Label bitcoinUI = UIControl.CreateLabel("bitcoin: 0", new Point(0, 30), Color.Gold);
 
         public Race()
@@ -21,7 +21,9 @@ namespace Game
             DoubleBuffered = true;
             KeyPreview = true;
 
-            Controls.Add(distanceUI);
+            // Ensure in-form labels are part of the normal paint lifecycle to avoid
+            // creating ad-hoc DeviceContexts via Update().
+            Controls.Add(scoreUI);
             Controls.Add(bitcoinUI);
 
             timer.Interval = 25;
@@ -37,7 +39,7 @@ namespace Game
             Road.Reset();
             Player.Reset();
             Enemy.Reset();
-            Bitcoin.Reset(bitcoinUI);   
+            Bitcoin.Reset(bitcoinUI);
             Bonuses.Reset();
             timer.Enabled = true;
         }
@@ -59,7 +61,7 @@ namespace Game
         {
             Player.PlayerKeyUp(sender, e);
         }
-        
+
 
         private void Race_Paint(object sender, PaintEventArgs e)
         {
@@ -73,15 +75,15 @@ namespace Game
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (this.IsDisposed || this.Disposing)
+            if (this.IsDisposed || this.Disposing) // IDK
             {
                 return;
             }
 
             distanceScore++;
 
-            distanceUI.Text = $"score: {distanceScore / 5}";
-            distanceUI.Update();
+            scoreUI.Text = $"score: {distanceScore / 5}";
+            scoreUI.Update();
 
 
             if (CollisionDetection(Player.GetRect(), Enemy.GetRect()))
@@ -91,7 +93,6 @@ namespace Game
                 if (isDead)
                 {
                     StopGame();
-                    Sound.PlayPlayerExplosion(); // PROBLEM
 
                     DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
                                                            "Game Over",
@@ -109,10 +110,6 @@ namespace Game
                         Sound.PlayMenuMusic();
                         return;
                     }
-                }
-                else
-                {     
-                    Sound.PlayPlayerExplosion();     
                 }
             }
 
@@ -133,16 +130,78 @@ namespace Game
 
         private void Exit_Click(object sender, EventArgs e) // PROBLEM: memory leak!!!
         {
-
             if (timer != null)
             {
-                timer.Enabled = false; // Выключаем
-                timer.Dispose();       // Полностью удаляем таймер из памяти
+                timer.Enabled = false;
+                timer.Dispose();
             }
             RestartGame();
+
+            // 1. Принудительно очищаем тяжелые графические ресурсы элементов
+            if (this.BackgroundImage != null)
+            {
+                this.BackgroundImage.Dispose();
+                this.BackgroundImage = null;
+            }
+
+            // Проходимся по всем кнопкам или PictureBox и очищаем их картинки
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is PictureBox pb && pb.Image != null)
+                {
+                    pb.Image.Dispose();
+                    pb.Image = null;
+                }
+            }
+            ClearAllImages(this.Controls);
+            Close();
+
             Dispose();
             Sound.PlayMenuMusic();
             Debug.WriteLine("BUTTON: exit");
+
         }
+
+
+        private void ClearAllImages(Control.ControlCollection controls)
+        {
+            foreach (Control ctrl in controls)
+            {
+                // 1. Если элемент — это PictureBox, уничтожаем его картинку
+                if (ctrl is PictureBox pb)
+                {
+                    if (pb.Image != null)
+                    {
+                        pb.Image.Dispose();
+                        pb.Image = null;
+                    }
+                    if (pb.InitialImage != null) // Очищаем стандартное/загрузочное изображение
+                    {
+                        pb.InitialImage.Dispose();
+                        pb.InitialImage = null;
+                    }
+                }
+
+                // 2. Если внутри этого элемента есть другие элементы (например, в Panel или GroupBox)
+                // запускаем этот же метод для них (рекурсия)
+                if (ctrl.HasChildren)
+                {
+                    ClearAllImages(ctrl.Controls);
+                }
+
+                // 3. Дополнительно очищаем фоновые изображения самих контейнеров
+                if (ctrl.BackgroundImage != null)
+                {
+                    ctrl.BackgroundImage.Dispose();
+                    ctrl.BackgroundImage = null;
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+        
     }
 }

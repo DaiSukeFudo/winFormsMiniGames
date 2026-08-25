@@ -7,14 +7,20 @@ namespace Game
     internal class Enemy
     {
         private static Image enemyImage = Properties.Resources.enemy;
-        private static int enemy_speed = 20;
-        private static int x;
-        private static int y = -500;
         private static Random random = new Random();
+        private static int enemy_speed = 20;
+        private static int x = random.Next(200, 540);
+        private static int y = -500;
+        
         private static int width = 50;
         private static int height = 50;
         private static Rectangle rect;
 
+
+        //static Enemy()
+        //{
+        //    x = random.Next(200, 540);
+        //}
 
         public static Rectangle GetRect()
         {
