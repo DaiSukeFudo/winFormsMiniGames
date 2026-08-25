@@ -47,13 +47,13 @@ namespace Game
         public static void Collect(Label bitcoinLabel)
         {
             Respawn();
-            Sound.BitcoinCollect();
+            Sound.PlayBitcoinCollect();
             countOfBitcoins++;
             bitcoinLabel.Text = $"bitcoins: {countOfBitcoins}";
         }
 
 
-        public static void Bitok_Print(object sender, PaintEventArgs e)
+        public static void Bitcoin_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(bitcoinImage, rect);
         }

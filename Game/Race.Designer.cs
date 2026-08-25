@@ -99,7 +99,7 @@
             this.exit.TabIndex = 6;
             this.exit.Text = "exit";
             this.exit.UseVisualStyleBackColor = true;
-            this.exit.Click += new System.EventHandler(this.button1_Click);
+            this.exit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // Race
             // 
@@ -118,8 +118,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Race";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Race_Paint);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RaceFormKeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RaceFormKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.Road2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Enemy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Enemy2)).EndInit();

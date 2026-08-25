@@ -10,7 +10,7 @@ namespace Game
         static SoundPlayer musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
         static SoundPlayer explosionSound = new SoundPlayer(Properties.Resources.explosion);
         
-        public static void BitcoinCollect()
+        public static void PlayBitcoinCollect()
         {    
             collectB.Play();
         }
@@ -27,7 +27,7 @@ namespace Game
         }
 
 
-        public static void PlayExplosion()
+        public static void PlayPlayerExplosion()
         {
             explosionSound.Play();
         }

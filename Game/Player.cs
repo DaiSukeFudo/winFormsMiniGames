@@ -28,7 +28,7 @@ namespace Game
         private static int height = 64;
         private static Rectangle rect;
 
-        private static int lives = 10;
+        private static int lives = 3;
         private static int currentLives = lives;
 
         private static bool isInvincible = false;
@@ -49,7 +49,7 @@ namespace Game
             return rect;
         }
 
-        public static void _KeyDown(object sender, KeyEventArgs e)
+        public static void PlayerKeyDown(object sender, KeyEventArgs e)
         {
 
             switch (e.KeyCode)
@@ -61,7 +61,7 @@ namespace Game
             }
         }
 
-        public static void _KeyUp(object sender, KeyEventArgs e)
+        public static void PlayerKeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
@@ -130,7 +130,10 @@ namespace Game
 
         public static bool LoseLife()
         {
-            if (isInvincible) return false; 
+            if (isInvincible)
+            {
+                return false;
+            }
             currentLives--;
             if (currentLives == 0)
             {

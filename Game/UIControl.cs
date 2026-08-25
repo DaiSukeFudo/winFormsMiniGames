@@ -10,13 +10,13 @@ namespace Game
 {
     internal class UIControl
     {
-        public static Label CreateText(string text, Point location)
+        public static Label CreateLabel(string text, Point location, Color color)
         {
             Label label = new Label();
             label.Text = text;
             label.Location = location;
             label.Font = new Font("Arial", 14);
-            label.ForeColor = Color.Gold;
+            label.ForeColor = color;
 
             label.BringToFront();
             label.AutoSize = true;

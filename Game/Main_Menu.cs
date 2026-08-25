@@ -16,7 +16,7 @@ namespace Game
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Play_Click(object sender, EventArgs e)
         {
             Sound.StopMenuMusic();
             Hide();
@@ -25,11 +25,11 @@ namespace Game
                 gameForm.ShowDialog();
             }   
             Show();
-            Debug.WriteLine("Race: closed");
+            Debug.WriteLine("Main_Menu: race closed");
         }
 
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void Settings_Click(object sender, EventArgs e)
         {
             using (Settings gameForm = new Settings())
             {

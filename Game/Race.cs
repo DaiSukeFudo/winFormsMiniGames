@@ -11,9 +11,8 @@ namespace Game
     {
         private int distanceScore = 0;
 
-        private Label distanceUI = UIControl.CreateText("score: 0", new Point(0, 30));
-        private Label bitcoinUI = UIControl.CreateText("bitcoin: 0", new Point(0, 5));
-
+        private Label distanceUI = UIControl.CreateLabel("score: 0", new Point(0, 5), Color.GreenYellow);
+        private Label bitcoinUI = UIControl.CreateLabel("bitcoin: 0", new Point(0, 30), Color.Gold);
 
         public Race()
         {
@@ -50,22 +49,22 @@ namespace Game
         }
 
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void RaceFormKeyDown(object sender, KeyEventArgs e)
         {
-            Player._KeyDown(sender, e);
+            Player.PlayerKeyDown(sender, e);
         }
 
 
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        private void RaceFormKeyUp(object sender, KeyEventArgs e)
         {
-            Player._KeyUp(sender, e);
+            Player.PlayerKeyUp(sender, e);
         }
         
 
         private void Race_Paint(object sender, PaintEventArgs e)
         {
             Road.Road_Paint(sender, e);
-            Bitcoin.Bitok_Print(sender, e);
+            Bitcoin.Bitcoin_Paint(sender, e);
             Enemy.Enemy_Paint(sender, e);
             Player.Player_Paint(sender, e);
             Bonuses.Bonuses_Paint(sender, e);
@@ -92,7 +91,7 @@ namespace Game
                 if (isDead)
                 {
                     StopGame();
-                    Sound.PlayExplosion();
+                    Sound.PlayPlayerExplosion(); // PROBLEM
 
                     DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
                                                            "Game Over",
@@ -113,7 +112,7 @@ namespace Game
                 }
                 else
                 {     
-                    Sound.PlayExplosion();     
+                    Sound.PlayPlayerExplosion();     
                 }
             }
 
@@ -132,7 +131,7 @@ namespace Game
         }
         
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Exit_Click(object sender, EventArgs e) // PROBLEM: memory leak!!!
         {
 
             if (timer != null)
