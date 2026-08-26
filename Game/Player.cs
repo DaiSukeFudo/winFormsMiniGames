@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -34,6 +35,13 @@ namespace Game
         private static bool isInvincible = false;
         private static Timer invincibilityTimer = new Timer();
         private static int blinkCounter = 0;
+
+
+        private static int heartSize = 30;
+        private static int startX = 0;
+        private static int startY = 60;
+        private static int spacing = 40;
+
 
         // Reuse a single Font instance for drawing hearts to avoid allocating a new
         // Font on every Paint call (prevents GDI handle growth).
@@ -107,11 +115,25 @@ namespace Game
 
         public static void DrawHearts(PaintEventArgs e)
         {
-            int heartSize = 30;
-            int startX = 0;
-            int startY = 60;
-            int spacing = 40;
+            for (int i = 0; i < currentLives; i++)
+            {
+                int xPos = startX + i * spacing;
+                int yPos = startY;
 
+                if (i < currentLives)
+                {
+                    e.Graphics.DrawImage(heartImage, xPos, yPos, heartSize, heartSize);
+                }
+                else
+                {
+                    e.Graphics.DrawRectangle(Pens.Gray, xPos, yPos, heartSize, heartSize);
+                    e.Graphics.DrawString("❤", heartsFont, Brushes.Gray, xPos + 5, yPos + 5);
+                }
+            }
+        }
+
+        public static void DrawHeartsTest(PaintEventArgs e)
+        {
             for (int i = 0; i < currentLives; i++)
             {
                 int xPos = startX + i * spacing;
@@ -139,7 +161,8 @@ namespace Game
 
             Sound.PlayPlayerExplosion();
             currentLives--;
-
+            //Debug.WriteLine("Heart redraw");
+            //DrawHeartsTest(e);
             if (currentLives == 0)
             {
                 Sound.PlayPlayerExplosion();

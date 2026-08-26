@@ -9,12 +9,14 @@ namespace Game
     public partial class Main_Menu : Form
     {
         private static Image backgound = Properties.Resources.background;
+
         public Main_Menu()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
+            Sound.CreateMenuMusic();
             Sound.PlayMenuMusic();
-           
+
         }
 
 
@@ -26,19 +28,15 @@ namespace Game
             {
                 gameForm.ShowDialog();
             }
-
-
-
-
-
             Show();
+            Sound.CreateMenuMusic();
+            Sound.PlayMenuMusic();
             Debug.WriteLine("Main_Menu: race closed");
         }
 
 
         private void Settings_Click(object sender, EventArgs e)
         {
-            Sound.StopMenuMusic();
             using (Settings gameForm = new Settings())
             {
                 gameForm.ShowDialog();

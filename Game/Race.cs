@@ -28,6 +28,11 @@ namespace Game
 
             KeyPreview = true;
 
+
+            Sound.CreateBitcoinCollect();
+            Sound.CreatePlayerExplosion();
+
+
             // Ensure in-form labels are part of the normal paint lifecycle to avoid
             // creating ad-hoc DeviceContexts via Update().
             Controls.Add(scoreUI);
@@ -80,6 +85,7 @@ namespace Game
             Enemy.Enemy_Paint(sender, e);
             Player.Player_Paint(sender, e);
             Bonuses.Bonuses_Paint(sender, e);
+
         }
 
 
@@ -115,10 +121,16 @@ namespace Game
                     }
                     else
                     {
+                        if (timer != null) // maybe do func
+                        {
+                            timer.Enabled = false;
+                            timer.Dispose();
+                        }
                         RestartGame();
-                        Close();
-                        Sound.PlayMenuMusic();
-                        return;
+                        Sound.StopPlayerExplosion();
+                        Sound.StopBitcoinCollect();
+                        ClearAllImages(this.Controls);
+                        Dispose();
                     }
                 }
             }
@@ -140,35 +152,19 @@ namespace Game
 
         private void Exit_Click(object sender, EventArgs e) // PROBLEM: memory leak!!!
         {
-            if (timer != null)
+            if (timer != null) // maybe do func
             {
                 timer.Enabled = false;
                 timer.Dispose();
             }
             RestartGame();
+            Sound.StopPlayerExplosion();
+            Sound.StopBitcoinCollect();
 
-            // 1. Принудительно очищаем тяжелые графические ресурсы элементов
-            if (this.BackgroundImage != null)
-            {
-                this.BackgroundImage.Dispose();
-                this.BackgroundImage = null;
-            }
-
-            // Проходимся по всем кнопкам или PictureBox и очищаем их картинки
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is PictureBox pb && pb.Image != null)
-                {
-                    pb.Image.Dispose();
-                    pb.Image = null;
-                }
-            }
             ClearAllImages(this.Controls);
-            Close();
-
             Dispose();
-            Sound.PlayMenuMusic();
-            Debug.WriteLine("BUTTON: exit");
+            //Sound.PlayMenuMusic();
+            //Debug.WriteLine("BUTTON: exit");
 
         }
 

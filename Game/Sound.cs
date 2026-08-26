@@ -9,99 +9,63 @@ namespace Game
 {
     public class Sound
     {
-        //private static readonly string bitcoinSoundPath;
-
-        //static Sound()
-        //{
-        //    try
-        //    {
-        //        // Используем системную временную папку, чтобы не засорять папку с программой
-        //        string tempFolder = Path.GetTempPath();
-        //        bitcoinSoundPath = Path.Combine(tempFolder, "app_collect_bitcoin.wav");
-
-        //        // Извлекаем аудиопоток из вашего Resources.resx
-        //        // Примечание: Если имя файла ресурсов отличается от стандартного Resources, 
-        //        // замените "Properties.Resources" на ваше имя (например, Properties.Resource1)
-        //        using (Stream stream = Properties.Resources.collectBitcoin)
-        //        {
-        //            if (stream != null)
-        //            {
-        //                using (FileStream fileStream = new FileStream(bitcoinSoundPath, FileMode.Create, FileAccess.Write))
-        //                {
-        //                    stream.CopyTo(fileStream);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine($"Не удалось подготовить аудиофайл: {ex.Message}");
-        //    }
-        //}
-
-        //public static void PlayBitcoinCollect()
-        //{
-        //    // Проверяем, существует ли временный файл перед воспроизведением
-        //    if (string.IsNullOrEmpty(bitcoinSoundPath) || !File.Exists(bitcoinSoundPath))
-        //        return;
-
-        //    try
-        //    {
-        //        // Каждый вызов создает изолированный плеер, что позволяет звукам накладываться
-        //        MediaPlayer player = new MediaPlayer();
-        //        player.Open(new Uri(bitcoinSoundPath, UriKind.Absolute));
-        //        player.Play();
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine($"Ошибка при воспроизведении звука: {ex.Message}");
-        //    }
-        //}
-
-
-        static SoundPlayer collectBitcoin = new SoundPlayer(Properties.Resources.collectBitcoin);
-        //static SoundPlayer musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
-        static SoundPlayer explosionSound = new SoundPlayer(Properties.Resources.explosion);
-
-
-
-
+        static SoundPlayer collectBitcoin;
+        public static void CreateBitcoinCollect()
+        {
+            collectBitcoin = new SoundPlayer(Properties.Resources.collectBitcoin);
+        }
         public static void PlayBitcoinCollect()
         {
             collectBitcoin.Play();
         }
+        public static void StopBitcoinCollect()
+        {
+            if(collectBitcoin != null)
+            {
+                collectBitcoin.Stop();
+                collectBitcoin.Dispose();
+                collectBitcoin = null;
+            }
+        }
 
 
-        //public static void PlayMenuMusic()
-        //{
-        //    musicMain.Play();
-        //}
-
-        //public static void StopMenuMusic()
-        //{
-        //    musicMain.Stop();
-        //}
-
-
+        static SoundPlayer explosionSound;
+        public static void CreatePlayerExplosion()
+        {
+            explosionSound = new SoundPlayer(Properties.Resources.explosion);
+        }
         public static void PlayPlayerExplosion()
         {
             explosionSound.Play();
         }
-
-        static private SoundPlayer musicMain;
-
-        public static void PlayMenuMusic()
+        public static void StopPlayerExplosion()
         {
-            musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
-            musicMain.Play();
+            if(explosionSound != null)
+            {
+                explosionSound.Stop();
+                explosionSound.Dispose();
+                explosionSound = null;
+            }
         }
 
+
+        static private SoundPlayer musicMain;
+        public static void CreateMenuMusic()
+        {
+            musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
+        }
+        public static void PlayMenuMusic()
+        {
+            musicMain.Play();
+        }
         public static void StopMenuMusic()
         {
-            musicMain.Stop();
-            musicMain.Dispose();
-            musicMain = null;
+            if(musicMain != null)
+            {
+                musicMain.Stop();
+                musicMain.Dispose();
+                musicMain = null;
+            }
         }
     }
 }
