@@ -1,60 +1,52 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using static Game.Collision;
 
 
-
 namespace Game
 {
- 
     public partial class Race : Form
     {
-        private static int distance = 0;
-        private static Label distUI;
+        private int distanceScore = 0;
 
-        private static Form main_menu;
-      
-        public Race(Form mm)
+        private Label scoreUI = UIControl.CreateLabel("score: 0", new Point(0, 5), Color.GreenYellow);
+        private Label bitcoinUI = UIControl.CreateLabel("bitcoin: 0", new Point(0, 30), Color.Gold);
+
+        public Race()
         {
             InitializeComponent();
 
-            System.Diagnostics.Debug.WriteLine("Race init");
-            main_menu = mm;
             DoubleBuffered = true;
+
+            // Дополнительные стили для оптимизации отрисовки
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint |
+                          ControlStyles.OptimizedDoubleBuffer, true);
+            this.UpdateStyles();
+
             KeyPreview = true;
 
-            distUI = new Label();
-            distUI.Font = new Font("Arial", 14);
-            distUI.ForeColor = Color.GreenYellow;
-            distUI.AutoSize= true;
-            distUI.Enabled=true;
-            distUI.Location = new Point(0, 30);
-           
-            Bitcoin.CreateBitcoinCounter(this);
-
-            Controls.Add(distUI);
-            distUI.Text = $"score: {distance / 5}";
+            // Ensure in-form labels are part of the normal paint lifecycle to avoid
+            // creating ad-hoc DeviceContexts via Update().
+            Controls.Add(scoreUI);
+            Controls.Add(bitcoinUI);
 
             timer.Interval = 25;
-            Initialize(this);
 
-            
+            Debug.WriteLine("Race init");
         }
 
-        public static int GetDistance()
-        {
-            return distance;
-        }
 
         public void RestartGame()
         {
             timer.Enabled = false;
-            distance = 0;
+            distanceScore = 0;
             Road.Reset();
             Player.Reset();
             Enemy.Reset();
-            Bitcoin.Reset();   
+            Bitcoin.Reset(bitcoinUI);
             Bonuses.Reset();
             timer.Enabled = true;
         }
@@ -65,23 +57,26 @@ namespace Game
             timer.Enabled = false;
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+
+        private void RaceFormKeyDown(object sender, KeyEventArgs e)
         {
-            Player._KeyDown(sender, e);
-            
+            Player.PlayerKeyDown(sender, e);
         }
 
-         
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
+
+        private void RaceFormKeyUp(object sender, KeyEventArgs e)
         {
-            Player._KeyUp(sender, e);
+            Player.PlayerKeyUp(sender, e);
         }
-        
+
 
         private void Race_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;//
+            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;//
+
             Road.Road_Paint(sender, e);
-            Bitcoin.Bitok_Print(sender, e);
+            Bitcoin.Bitcoin_Paint(sender, e);
             Enemy.Enemy_Paint(sender, e);
             Player.Player_Paint(sender, e);
             Bonuses.Bonuses_Paint(sender, e);
@@ -90,28 +85,30 @@ namespace Game
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            
-            distance++;
-            
-            distUI.Text = $"score: {distance / 5}";
-            distUI.Update();
+            if (this.IsDisposed || this.Disposing) // IDK
+            {
+                return;
+            }
 
+            distanceScore++;
 
+            scoreUI.Text = $"score: {distanceScore / 5}";
+            scoreUI.Update();
 
 
             if (CollisionDetection(Player.GetRect(), Enemy.GetRect()))
             {
-               
                 bool isDead = Player.LoseLife();
 
                 if (isDead)
                 {
-                    
                     StopGame();
-                    Sound.PlayExplosionWithStopMusic();
+
                     DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
                                                            "Game Over",
-                                                           MessageBoxButtons.YesNo);
+                                                           MessageBoxButtons.YesNo
+                    );
+
                     if (result == DialogResult.Yes)
                     {
                         RestartGame();
@@ -119,24 +116,16 @@ namespace Game
                     else
                     {
                         RestartGame();
-                        main_menu.Show();
                         Close();
+                        Sound.PlayMenuMusic();
                         return;
                     }
                 }
-                else
-                {
-                    
-                    Sound.PlayExplosionWithStopMusic();
-                    
-                    Sound.music();
-                }
             }
-
 
             if (CollisionDetection(Player.GetRect(), Bitcoin.GetRect()))
             {
-                Bitcoin.Collect();
+                Bitcoin.Collect(bitcoinUI);
             }
 
             Road.Move();
@@ -149,12 +138,80 @@ namespace Game
         }
         
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Exit_Click(object sender, EventArgs e) // PROBLEM: memory leak!!!
         {
-            Application.Restart();
+            if (timer != null)
+            {
+                timer.Enabled = false;
+                timer.Dispose();
+            }
+            RestartGame();
+
+            // 1. Принудительно очищаем тяжелые графические ресурсы элементов
+            if (this.BackgroundImage != null)
+            {
+                this.BackgroundImage.Dispose();
+                this.BackgroundImage = null;
+            }
+
+            // Проходимся по всем кнопкам или PictureBox и очищаем их картинки
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is PictureBox pb && pb.Image != null)
+                {
+                    pb.Image.Dispose();
+                    pb.Image = null;
+                }
+            }
+            ClearAllImages(this.Controls);
+            Close();
+
+            Dispose();
+            Sound.PlayMenuMusic();
+            Debug.WriteLine("BUTTON: exit");
+
         }
 
-       
 
+        private void ClearAllImages(Control.ControlCollection controls)
+        {
+            foreach (Control ctrl in controls)
+            {
+                // 1. Если элемент — это PictureBox, уничтожаем его картинку
+                if (ctrl is PictureBox pb)
+                {
+                    if (pb.Image != null)
+                    {
+                        pb.Image.Dispose();
+                        pb.Image = null;
+                    }
+                    if (pb.InitialImage != null) // Очищаем стандартное/загрузочное изображение
+                    {
+                        pb.InitialImage.Dispose();
+                        pb.InitialImage = null;
+                    }
+                }
+
+                // 2. Если внутри этого элемента есть другие элементы (например, в Panel или GroupBox)
+                // запускаем этот же метод для них (рекурсия)
+                if (ctrl.HasChildren)
+                {
+                    ClearAllImages(ctrl.Controls);
+                }
+
+                // 3. Дополнительно очищаем фоновые изображения самих контейнеров
+                if (ctrl.BackgroundImage != null)
+                {
+                    ctrl.BackgroundImage.Dispose();
+                    ctrl.BackgroundImage = null;
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+        
     }
 }

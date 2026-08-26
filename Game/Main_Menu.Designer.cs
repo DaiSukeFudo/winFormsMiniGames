@@ -45,7 +45,7 @@
             this.Play.TabIndex = 0;
             this.Play.Text = "Play";
             this.Play.UseVisualStyleBackColor = false;
-            this.Play.Click += new System.EventHandler(this.button1_Click);
+            this.Play.Click += new System.EventHandler(this.Play_Click);
             // 
             // Exit
             // 
@@ -74,7 +74,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "settings";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.Settings_Click);
             // 
             // Main_Menu
             // 

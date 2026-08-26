@@ -8,30 +8,15 @@ namespace Game
     internal class Bitcoin
     {
         private static Image bitcoinImage = Properties.Resources.bitcoin;
-
         private static int x = 220;
         private static int y = -100;
         private static int bitok_speed = 10;
-
         private static Random random = new Random();
-
         private static int countOfBitcoins = 0;
-
         private static int width = 64;
         private static int height = 32;
         private static Rectangle rect;
 
-        private static Label bitcoinCounterLabel;
-
-        static Bitcoin()
-        {
-            bitcoinCounterLabel = new Label();
-            bitcoinCounterLabel.Font = new Font("Arial", 14);
-            bitcoinCounterLabel.ForeColor = Color.Gold;
-            bitcoinCounterLabel.Location = new Point(0, 5);
-            bitcoinCounterLabel.BringToFront();
-            bitcoinCounterLabel.AutoSize = true;
-        }
 
         public static Rectangle GetRect()
         {
@@ -59,35 +44,27 @@ namespace Game
         }
 
 
-        public static void CreateBitcoinCounter(Race form)
+        public static void Collect(Label bitcoinLabel)
         {
-            form.Controls.Add(bitcoinCounterLabel);
-            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
-        }
-
-
-        public static void Collect()
-        {
-            Sound.BitcoinCollect();
-            countOfBitcoins++;
-            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
-            bitcoinCounterLabel.Update();
             Respawn();
+            Sound.PlayBitcoinCollect();
+            countOfBitcoins++;
+            bitcoinLabel.Text = $"bitcoins: {countOfBitcoins}";
         }
 
 
-        public static void Bitok_Print(object sender, PaintEventArgs e)
+        public static void Bitcoin_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawImage(bitcoinImage, rect);
         }
 
 
-        public static void Reset()
+        public static void Reset(Label bitcoinLabel)
         {
             Respawn();
             countOfBitcoins = 0;
-            bitcoinCounterLabel.Text = $"bitcoins: {countOfBitcoins}";
-            bitcoinCounterLabel.Update();
+            bitcoinLabel.Text = $"bitcoins: {countOfBitcoins}";
+            bitcoinLabel.Update();
         }
     }
 }

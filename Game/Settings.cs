@@ -10,9 +10,10 @@ namespace Game
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void Exit_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Application.Restart();
+            Hide();
         }
     }
 }

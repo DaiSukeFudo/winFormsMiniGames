@@ -1,63 +1,66 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Media;
 using System.Windows.Forms;
 
 namespace Game
 {
     public partial class Main_Menu : Form
     {
-
-
+        private static Image backgound = Properties.Resources.background;
         public Main_Menu()
         {
-
             InitializeComponent();
             this.DoubleBuffered = true;
-            Sound.music();
+            Sound.PlayMenuMusic();
+           
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void Play_Click(object sender, EventArgs e)
         {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+            Sound.StopMenuMusic();
+            Hide();
+            using (Race gameForm = new Race())
+            {
+                gameForm.ShowDialog();
+            }
 
-            Race f2 = new Race(this);
-            this.Hide();
-            f2.ShowDialog();
-            this.Show();
 
-            
-            
 
-            
-            
+
+
+            Show();
+            Debug.WriteLine("Main_Menu: race closed");
         }
+
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            Sound.StopMenuMusic();
+            using (Settings gameForm = new Settings())
+            {
+                gameForm.ShowDialog();
+            }
+        }
+
 
         private void Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+
         private void Main_Menu_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.background, 0, 0, this.Size.Width, this.Size.Height);
+            e.Graphics.DrawImage(backgound, 0, 0, this.Size.Width, this.Size.Height);
         }
 
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             Invalidate();
-        }
-
-
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            using (Settings settings = new Settings())
-            {
-                this.Hide();
-                settings.ShowDialog();
-                this.Show();
-            }
         }
     }
 }

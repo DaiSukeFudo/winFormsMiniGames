@@ -13,10 +13,70 @@
         /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                // Dispose images held by PictureBox controls to release GDI objects
+                try
+                {
+                    if (this.Road2 != null && this.Road2.Image != null)
+                    {
+                        this.Road2.Image.Dispose();
+                        this.Road2.Image = null;
+                    }
+                    if (this.Enemy1 != null && this.Enemy1.Image != null)
+                    {
+                        this.Enemy1.Image.Dispose();
+                        this.Enemy1.Image = null;
+                    }
+                    if (this.Enemy2 != null && this.Enemy2.Image != null)
+                    {
+                        this.Enemy2.Image.Dispose();
+                        this.Enemy2.Image = null;
+                    }
+                    if (this.bitoc != null && this.bitoc.Image != null)
+                    {
+                        this.bitoc.Image.Dispose();
+                        this.bitoc.Image = null;
+                    }
+                }
+                catch
+                {
+                    // ignore disposal errors
+                }
+
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+                // Dispose labels created in Race (they are not added to Controls in current code)
+                try
+                {
+                    if (this.scoreUI != null)
+                    {
+                        this.scoreUI.Dispose();
+                        this.scoreUI = null;
+                    }
+                    if (this.bitcoinUI != null)
+                    {
+                        this.bitcoinUI.Dispose();
+                        this.bitcoinUI = null;
+                    }
+                }
+                catch
+                {
+                    // ignore
+                }
+
+                // Ensure Player static timers are stopped
+                try
+                {
+                    Game.Player.Reset();
+                }
+                catch
+                {
+                }
             }
+
             base.Dispose(disposing);
         }
 
@@ -93,13 +153,14 @@
             // 
             // exit
             // 
+            this.exit.BackColor = System.Drawing.Color.RosyBrown;
             this.exit.Location = new System.Drawing.Point(703, 12);
             this.exit.Name = "exit";
             this.exit.Size = new System.Drawing.Size(69, 22);
             this.exit.TabIndex = 6;
             this.exit.Text = "exit";
-            this.exit.UseVisualStyleBackColor = true;
-            this.exit.Click += new System.EventHandler(this.button1_Click);
+            this.exit.UseVisualStyleBackColor = false;
+            this.exit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // Race
             // 
@@ -118,8 +179,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Race";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Race_Paint);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RaceFormKeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RaceFormKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.Road2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Enemy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Enemy2)).EndInit();
