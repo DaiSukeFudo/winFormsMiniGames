@@ -19,6 +19,13 @@ namespace Game
             InitializeComponent();
 
             DoubleBuffered = true;
+
+            // Дополнительные стили для оптимизации отрисовки
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint |
+                          ControlStyles.OptimizedDoubleBuffer, true);
+            this.UpdateStyles();
+
             KeyPreview = true;
 
             // Ensure in-form labels are part of the normal paint lifecycle to avoid
@@ -65,6 +72,9 @@ namespace Game
 
         private void Race_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;//
+            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;//
+
             Road.Road_Paint(sender, e);
             Bitcoin.Bitcoin_Paint(sender, e);
             Enemy.Enemy_Paint(sender, e);

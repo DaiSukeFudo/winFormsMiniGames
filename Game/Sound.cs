@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Game
 {
-    internal class Sound
+    public class Sound
     {
         //private static readonly string bitcoinSoundPath;
 
@@ -61,11 +61,11 @@ namespace Game
 
 
         static SoundPlayer collectBitcoin = new SoundPlayer(Properties.Resources.collectBitcoin);
-        static SoundPlayer musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
+        //static SoundPlayer musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
         static SoundPlayer explosionSound = new SoundPlayer(Properties.Resources.explosion);
 
 
-        
+
 
         public static void PlayBitcoinCollect()
         {
@@ -73,15 +73,15 @@ namespace Game
         }
 
 
-        public static void PlayMenuMusic()
-        {
-            musicMain.Play();
-        }
+        //public static void PlayMenuMusic()
+        //{
+        //    musicMain.Play();
+        //}
 
-        public static void StopMenuMusic()
-        {
-            musicMain.Stop();
-        }
+        //public static void StopMenuMusic()
+        //{
+        //    musicMain.Stop();
+        //}
 
 
         public static void PlayPlayerExplosion()
@@ -89,6 +89,19 @@ namespace Game
             explosionSound.Play();
         }
 
+        static private SoundPlayer musicMain;
 
+        public static void PlayMenuMusic()
+        {
+            musicMain = new SoundPlayer(Properties.Resources.mainMenuMusic);
+            musicMain.Play();
+        }
+
+        public static void StopMenuMusic()
+        {
+            musicMain.Stop();
+            musicMain.Dispose();
+            musicMain = null;
+        }
     }
 }

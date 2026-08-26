@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Media;
+using System.Windows.Forms;
 
 namespace Game
 {
@@ -13,6 +14,7 @@ namespace Game
             InitializeComponent();
             this.DoubleBuffered = true;
             Sound.PlayMenuMusic();
+           
         }
 
 
@@ -24,10 +26,7 @@ namespace Game
             {
                 gameForm.ShowDialog();
             }
-            //using (TestRace gameForm = new TestRace())
-            //{
-            //    gameForm.ShowDialog();
-            //}
+
 
 
 
@@ -39,6 +38,7 @@ namespace Game
 
         private void Settings_Click(object sender, EventArgs e)
         {
+            Sound.StopMenuMusic();
             using (Settings gameForm = new Settings())
             {
                 gameForm.ShowDialog();
