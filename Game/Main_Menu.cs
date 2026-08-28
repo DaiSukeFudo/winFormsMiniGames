@@ -22,7 +22,7 @@ namespace Game
 
         private void Play_Click(object sender, EventArgs e)
         {
-            Sound.StopMenuMusic();
+            Sound.RemoveMenuMusic();
             Hide();
             using (Race gameForm = new Race())
             {
@@ -59,6 +59,14 @@ namespace Game
         private void timer1_Tick(object sender, EventArgs e)
         {
             Invalidate();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (Server gameForm = new Server())
+            {
+                gameForm.ShowDialog();
+            }
         }
     }
 }

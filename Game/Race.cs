@@ -127,8 +127,8 @@ namespace Game
                             timer.Dispose();
                         }
                         RestartGame();
-                        Sound.StopPlayerExplosion();
-                        Sound.StopBitcoinCollect();
+                        Sound.RemovePlayerExplosion();
+                        Sound.RemoveBitcoinCollect();
                         ClearAllImages(this.Controls);
                         Dispose();
                     }
@@ -158,8 +158,8 @@ namespace Game
                 timer.Dispose();
             }
             RestartGame();
-            Sound.StopPlayerExplosion();
-            Sound.StopBitcoinCollect();
+            Sound.RemovePlayerExplosion();
+            Sound.RemoveBitcoinCollect();
 
             ClearAllImages(this.Controls);
             Dispose();
