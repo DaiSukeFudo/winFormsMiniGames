@@ -68,5 +68,13 @@ namespace Game
                 gameForm.ShowDialog();
             }
         }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            using (Client gameForm = new Client())
+            {
+                gameForm.ShowDialog();
+            }
+        }
     }
 }

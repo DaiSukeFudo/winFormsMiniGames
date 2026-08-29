@@ -34,15 +34,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtPortCreate = new System.Windows.Forms.TextBox();
             this.btnStop = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtHostConnect = new System.Windows.Forms.TextBox();
-            this.txtPortConnect = new System.Windows.Forms.TextBox();
-            this.btnConnect = new System.Windows.Forms.Button();
-            this.btnDisconnect = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.chat = new System.Windows.Forms.TextBox();
+            this.txtChat = new System.Windows.Forms.TextBox();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.sendMessage = new System.Windows.Forms.Button();
             this.exit = new System.Windows.Forms.Button();
@@ -50,7 +43,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(491, 16);
+            this.btnStart.Location = new System.Drawing.Point(317, 55);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 0;
@@ -60,7 +53,7 @@
             // 
             // txtHostCreate
             // 
-            this.txtHostCreate.Location = new System.Drawing.Point(194, 21);
+            this.txtHostCreate.Location = new System.Drawing.Point(59, 57);
             this.txtHostCreate.Name = "txtHostCreate";
             this.txtHostCreate.Size = new System.Drawing.Size(110, 20);
             this.txtHostCreate.TabIndex = 1;
@@ -69,7 +62,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(156, 25);
+            this.label1.Location = new System.Drawing.Point(21, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 2;
@@ -78,7 +71,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(317, 25);
+            this.label2.Location = new System.Drawing.Point(187, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 3;
@@ -86,15 +79,15 @@
             // 
             // txtPortCreate
             // 
-            this.txtPortCreate.Location = new System.Drawing.Point(352, 18);
+            this.txtPortCreate.Location = new System.Drawing.Point(222, 57);
             this.txtPortCreate.Name = "txtPortCreate";
-            this.txtPortCreate.Size = new System.Drawing.Size(110, 20);
+            this.txtPortCreate.Size = new System.Drawing.Size(79, 20);
             this.txtPortCreate.TabIndex = 4;
             this.txtPortCreate.Text = "8910";
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(572, 16);
+            this.btnStop.Location = new System.Drawing.Point(408, 54);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 5;
@@ -102,83 +95,22 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.stopServer_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(156, 64);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Host:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(317, 64);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Port:";
-            // 
-            // txtHostConnect
-            // 
-            this.txtHostConnect.Location = new System.Drawing.Point(194, 57);
-            this.txtHostConnect.Name = "txtHostConnect";
-            this.txtHostConnect.Size = new System.Drawing.Size(110, 20);
-            this.txtHostConnect.TabIndex = 8;
-            // 
-            // txtPortConnect
-            // 
-            this.txtPortConnect.Location = new System.Drawing.Point(352, 57);
-            this.txtPortConnect.Name = "txtPortConnect";
-            this.txtPortConnect.Size = new System.Drawing.Size(110, 20);
-            this.txtPortConnect.TabIndex = 9;
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(491, 59);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(75, 23);
-            this.btnConnect.TabIndex = 10;
-            this.btnConnect.Text = "Connect";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.connectServer_Click);
-            // 
-            // btnDisconnect
-            // 
-            this.btnDisconnect.Location = new System.Drawing.Point(572, 59);
-            this.btnDisconnect.Name = "btnDisconnect";
-            this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
-            this.btnDisconnect.TabIndex = 11;
-            this.btnDisconnect.Text = "Disconnect";
-            this.btnDisconnect.UseVisualStyleBackColor = true;
-            this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 26);
+            this.label5.Location = new System.Drawing.Point(12, 16);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(82, 13);
             this.label5.TabIndex = 12;
             this.label5.Text = "Create a server:";
             // 
-            // label6
+            // txtChat
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 64);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(112, 13);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Connect to the server:";
-            // 
-            // chat
-            // 
-            this.chat.Location = new System.Drawing.Point(24, 105);
-            this.chat.Multiline = true;
-            this.chat.Name = "chat";
-            this.chat.Size = new System.Drawing.Size(459, 228);
-            this.chat.TabIndex = 14;
+            this.txtChat.Location = new System.Drawing.Point(24, 105);
+            this.txtChat.Multiline = true;
+            this.txtChat.Name = "txtChat";
+            this.txtChat.Size = new System.Drawing.Size(459, 228);
+            this.txtChat.TabIndex = 14;
             // 
             // txtMessage
             // 
@@ -217,15 +149,8 @@
             this.Controls.Add(this.exit);
             this.Controls.Add(this.sendMessage);
             this.Controls.Add(this.txtMessage);
-            this.Controls.Add(this.chat);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtChat);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.btnDisconnect);
-            this.Controls.Add(this.btnConnect);
-            this.Controls.Add(this.txtPortConnect);
-            this.Controls.Add(this.txtHostConnect);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.txtPortCreate);
             this.Controls.Add(this.label2);
@@ -247,15 +172,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtPortCreate;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtHostConnect;
-        private System.Windows.Forms.TextBox txtPortConnect;
-        private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox chat;
+        private System.Windows.Forms.TextBox txtChat;
         private System.Windows.Forms.TextBox txtMessage;
         private System.Windows.Forms.Button sendMessage;
         private System.Windows.Forms.Button exit;
