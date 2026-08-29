@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Media;
@@ -72,6 +72,14 @@ namespace Game
         private void btnConnect_Click(object sender, EventArgs e)
         {
             using (Client gameForm = new Client())
+            {
+                gameForm.ShowDialog();
+            }
+        }
+
+        private void btnGames_Click(object sender, EventArgs e)
+        {
+            using (Games gameForm = new Games())
             {
                 gameForm.ShowDialog();
             }
