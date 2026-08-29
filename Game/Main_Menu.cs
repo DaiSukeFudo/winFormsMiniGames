@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Media;
@@ -22,7 +22,7 @@ namespace Game
 
         private void Play_Click(object sender, EventArgs e)
         {
-            Sound.StopMenuMusic();
+            Sound.RemoveMenuMusic();
             Hide();
             using (Race gameForm = new Race())
             {
@@ -59,6 +59,30 @@ namespace Game
         private void timer1_Tick(object sender, EventArgs e)
         {
             Invalidate();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (Server gameForm = new Server())
+            {
+                gameForm.ShowDialog();
+            }
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            using (Client gameForm = new Client())
+            {
+                gameForm.ShowDialog();
+            }
+        }
+
+        private void btnGames_Click(object sender, EventArgs e)
+        {
+            using (Games gameForm = new Games())
+            {
+                gameForm.ShowDialog();
+            }
         }
     }
 }

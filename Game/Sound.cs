@@ -9,6 +9,13 @@ namespace Game
 {
     public class Sound
     {
+        public static void Off()
+        {
+            //Properties.Resources.bitcoin.Dispose(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!
+            Properties.Settings.Default.SoundStatus = false;
+        }
+
+
         static SoundPlayer collectBitcoin;
         public static void CreateBitcoinCollect()
         {
@@ -18,7 +25,7 @@ namespace Game
         {
             collectBitcoin.Play();
         }
-        public static void StopBitcoinCollect()
+        public static void RemoveBitcoinCollect()
         {
             if(collectBitcoin != null)
             {
@@ -38,7 +45,7 @@ namespace Game
         {
             explosionSound.Play();
         }
-        public static void StopPlayerExplosion()
+        public static void RemovePlayerExplosion()
         {
             if(explosionSound != null)
             {
@@ -56,9 +63,12 @@ namespace Game
         }
         public static void PlayMenuMusic()
         {
-            musicMain.Play();
+            if (Properties.Settings.Default.SoundStatus)
+            {
+                musicMain.Play();
+            }
         }
-        public static void StopMenuMusic()
+        public static void RemoveMenuMusic()
         {
             if(musicMain != null)
             {
