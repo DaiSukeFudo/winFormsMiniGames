@@ -48,6 +48,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObject.cs" />
     <Compile Include="gameRace\Bitcoin.cs" />
     <Compile Include="net\Client.cs">
       <SubType>Form</SubType>

@@ -16,11 +16,6 @@ namespace Game
         private static int height = 32;
         private static Rectangle rect;
 
-        //Bonuses()
-        //{
-        //    x = random.Next(200, 540);
-        //}
-
 
         public static void Move()
         {

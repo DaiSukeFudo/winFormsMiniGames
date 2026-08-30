@@ -178,7 +178,6 @@
             this.Name = "Race";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Race";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Race_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RaceFormKeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RaceFormKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.Road2)).EndInit();

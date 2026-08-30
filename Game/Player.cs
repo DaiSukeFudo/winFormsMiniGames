@@ -1,174 +1,101 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
 
 namespace Game
 {
-    internal class Player
+    internal class Player : GameObject
     {
-        private static Image playerImage = Properties.Resources.car;
+        private int lives = 3;
+        private int speed = 20;
+        private int currentLives;
+
+        private bool isInvincible = false;
+        private int blinkCounter = 0;
+        private Timer invincibilityTimer;
+
+        private bool isLeft = false;
+        private bool isRight = false;
+        private bool isUp = false;
+        private bool isDown = false;
+
+        private const int MIN_X = 200;
+        private const int MAX_X = 540;
+        private const int MIN_Y = 0;
+        private const int MAX_Y = 530;
+
         private static Image heartImage = Properties.Resources.health;
-
-        private static int x = 400;
-        private static int y = 500;
-        private static int car_speed = 15;
-
-        private static bool Up = false;
-        private static bool Down = false;
-        private static bool isLeft = false;
-        private static bool isRight = false;
-
-        private const int Allowance_Left = 200;
-        private const int Allowance_Right = 540;
-        private const int Allowance_Up = 0;
-        private const int Allowance_Down = 530;
-
-        private static int width = 64;
-        private static int height = 64;
-        private static Rectangle rect;
-
-        private static int lives = 3;
-        private static int currentLives = lives;
-
-        private static bool isInvincible = false;
-        private static Timer invincibilityTimer = new Timer();
-        private static int blinkCounter = 0;
+        private const int HEART_SIZE = 30;
+        private const int HEART_START_X = 0;
+        private const int HEART_START_Y = 60;
+        private const int HEART_SPACING = 40;
 
 
-        private static int heartSize = 30;
-        private static int startX = 0;
-        private static int startY = 60;
-        private static int spacing = 40;
 
-
-        // Reuse a single Font instance for drawing hearts to avoid allocating a new
-        // Font on every Paint call (prevents GDI handle growth).
-        private static readonly Font heartsFont = new Font("Arial", 14);
-
-
-        static Player()
+        public Player(int x, int y, int width, int height, Image image): base(x, y, width, height, image) 
         {
+            currentLives = lives;
+            invincibilityTimer = new Timer();
             invincibilityTimer.Interval = 100;
             invincibilityTimer.Tick += InvincibilityTimer_Tick;
         }
 
-
-        public static Rectangle GetRect()
+        public override void Update()
         {
-            rect = new Rectangle(x, y, width, height);
-            return rect;
+            if (isLeft && x > MIN_X) x -= speed;
+            if (isRight && x < MAX_X) x += speed;
+            if (isUp && y > MIN_Y) y -= speed;
+            if (isDown && y < MAX_Y) y += speed;
         }
 
-        public static void PlayerKeyDown(object sender, KeyEventArgs e)
+        public override void Draw(Graphics g)
+        {
+            if(!isInvincible || blinkcounter % 2 == 0)
+            {
+                g.DrawImage(image, x, y, width, height );
+            }
+            DrawHearts(g);
+        }
+
+        public void KeyDown(object sender, KeyEventArgs e)
         {
 
             switch (e.KeyCode)
             {
                 case Keys.A: isLeft = true; break;
                 case Keys.D: isRight = true; break;
-                case Keys.W: Up = true; break;
-                case Keys.S: Down = true; break;
+                case Keys.W: isUp = true; break;
+                case Keys.S: isDown = true; break;
             }
         }
 
-        public static void PlayerKeyUp(object sender, KeyEventArgs e)
+        public void KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
                 case Keys.A: isLeft = false; break;
                 case Keys.D: isRight = false; break;
-                case Keys.W: Up = false; break;
-                case Keys.S: Down = false; break;
-            }
-        }
-
-        
-        public static void Move()
-        {
-            if (isLeft && x > Allowance_Left) 
-                x -= car_speed;
- 
-            if (isRight && x < Allowance_Right)
-                x += car_speed;
-            
-            if (Up && y > Allowance_Up)
-                y -= car_speed;
-    
-            if (Down && y < Allowance_Down)
-                y += car_speed;
-
-            rect = new Rectangle(x, y, width, height);
-        }
-
-
-        public static void Player_Paint(object sender, PaintEventArgs e)
-        {
-            if (!isInvincible || blinkCounter % 2 == 0)
-            {
-                e.Graphics.DrawImage(playerImage, rect);
-            }
-            DrawHearts(e);
-        }
-
-
-        public static void DrawHearts(PaintEventArgs e)
-        {
-            for (int i = 0; i < currentLives; i++)
-            {
-                int xPos = startX + i * spacing;
-                int yPos = startY;
-
-                if (i < currentLives)
-                {
-                    e.Graphics.DrawImage(heartImage, xPos, yPos, heartSize, heartSize);
-                }
-                else
-                {
-                    e.Graphics.DrawRectangle(Pens.Gray, xPos, yPos, heartSize, heartSize);
-                    e.Graphics.DrawString("❤", heartsFont, Brushes.Gray, xPos + 5, yPos + 5);
-                }
-            }
-        }
-
-        public static void DrawHeartsTest(PaintEventArgs e)
-        {
-            for (int i = 0; i < currentLives; i++)
-            {
-                int xPos = startX + i * spacing;
-                int yPos = startY;
-
-                if (i < currentLives)
-                {
-                    e.Graphics.DrawImage(heartImage, xPos, yPos, heartSize, heartSize);
-                }
-                else
-                {
-                    e.Graphics.DrawRectangle(Pens.Gray, xPos, yPos, heartSize, heartSize);
-                    e.Graphics.DrawString("❤", heartsFont, Brushes.Gray, xPos + 5, yPos + 5);
-                }
+                case Keys.W: isUp = false; break;
+                case Keys.S: isDown = false; break;
             }
         }
 
 
-        public static bool LoseLife()
+        public bool TakeDamage()
         {
-            if (isInvincible)
-            {  
-                return false;
-            }
+            if (isInvincible) return false;
 
             Sound.PlayPlayerExplosion();
+
             currentLives--;
-            //Debug.WriteLine("Heart redraw");
-            //DrawHeartsTest(e);
-            if (currentLives == 0)
+
+            if(currentLives <= 0)
             {
                 Sound.PlayPlayerExplosion();
-                return true; 
+                return true;
             }
-            
+
             isInvincible = true;
             blinkCounter = 0;
             invincibilityTimer.Start();
@@ -176,8 +103,37 @@ namespace Game
             return false;
         }
 
+        public void Reset()
+        {
+            x = 400;
+            y = 500;
+            currentLives = lives;
+            isInvincible = false;
+            blinkCounter = 0;
+            invincibilityTimer.Stop();
+
+            isLeft = false;
+            isRight = false;
+            isUp = false;
+            isDown = false;
+        }
+
+        public int GetLives()
+        {
+            return currentLives;
+        }
        
-        private static void InvincibilityTimer_Tick(object sender, EventArgs e)
+        private void DrawHearts(Graphics g)
+        {
+            for (int i = 0; i < currentLives; i++)
+            {
+                int xPos = HEART_START_X + i * HEART_SPACING;
+                int yPos = HEART_START_Y;
+                g.DrawImage(heartImage, xPos, yPos, HEART_SIZE, HEART_SIZE);
+            }
+        }
+
+        private void InvincibilityTimer_Tick(object sender, EventArgs e)
         {
             blinkCounter++;
             if (blinkCounter > 15) 
@@ -186,27 +142,6 @@ namespace Game
                 invincibilityTimer.Stop();
                 blinkCounter = 0;
             }
-        }
-
-       
-        public static void Reset()
-        {
-            x = 400;
-            y = 500;
-            isLeft = false;
-            isRight = false;
-            Up = false;
-            Down = false;
-            currentLives = lives;
-            isInvincible = false;
-            invincibilityTimer.Stop();
-            blinkCounter = 0;
-        }
-
-       
-        public static int GetLives()
-        {
-            return lives;
         }
     }
 }

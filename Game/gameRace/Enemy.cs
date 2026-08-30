@@ -16,12 +16,6 @@ namespace Game
         private static int height = 50;
         private static Rectangle rect;
 
-
-        //static Enemy()
-        //{
-        //    x = random.Next(200, 540);
-        //}
-
         public static Rectangle GetRect()
         {
             rect = new Rectangle(x, y, width, height); 
