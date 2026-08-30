@@ -8,7 +8,11 @@ namespace Game
 {
     public partial class Main_Menu : Form
     {
-        private static Image backgound = Properties.Resources.background;
+        private Image backgound = Properties.Resources.background;
+
+        private Settings settingsForm = new Settings();
+        private Server serverForm = new Server();
+        private Client clientForm = new Client();
 
         public Main_Menu()
         {
@@ -37,10 +41,7 @@ namespace Game
 
         private void Settings_Click(object sender, EventArgs e)
         {
-            using (Settings gameForm = new Settings())
-            {
-                gameForm.ShowDialog();
-            }
+            settingsForm.ShowDialog();
         }
 
 
@@ -63,18 +64,12 @@ namespace Game
 
         private void button2_Click(object sender, EventArgs e)
         {
-            using (Server gameForm = new Server())
-            {
-                gameForm.ShowDialog();
-            }
+            serverForm.ShowDialog();
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            using (Client gameForm = new Client())
-            {
-                gameForm.ShowDialog();
-            }
+            clientForm.ShowDialog();
         }
 
         private void btnGames_Click(object sender, EventArgs e)

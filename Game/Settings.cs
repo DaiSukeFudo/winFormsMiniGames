@@ -20,9 +20,9 @@ namespace Game
         {
             if(cbMainMenuMusic.Checked)
             {
+                Properties.Settings.Default.SoundStatus = true;
                 Sound.CreateMenuMusic();
                 Sound.PlayMenuMusic();
-                Properties.Settings.Default.SoundStatus = true;
             }
             else
             {
