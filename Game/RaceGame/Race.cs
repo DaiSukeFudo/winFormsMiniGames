@@ -52,7 +52,7 @@ namespace Game
             Player.Reset();
             Enemy.Reset();
             Bitcoin.Reset(bitcoinUI);
-            Bonuses.Reset();
+            //Bonuses.Reset();
             timer.Enabled = true;
         }
 
@@ -84,7 +84,7 @@ namespace Game
             Bitcoin.Bitcoin_Paint(sender, e);
             Enemy.Enemy_Paint(sender, e);
             Player.Player_Paint(sender, e);
-            Bonuses.Bonuses_Paint(sender, e);
+            //Bonuses.Bonuses_Paint(sender, e);
 
         }
 
@@ -105,7 +105,7 @@ namespace Game
             if (CollisionDetection(Player.GetRect(), Enemy.GetRect()))
             {
                 bool isDead = Player.LoseLife();
-
+                Invalidate();
                 if (isDead)
                 {
                     StopGame();
@@ -144,7 +144,7 @@ namespace Game
             Player.Move();
             Enemy.Move();
             Bitcoin.Move();
-            Bonuses.Move();
+            //Bonuses.Move();
 
             Invalidate();
         }

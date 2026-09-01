@@ -13,7 +13,7 @@ namespace Game
         private static int bitok_speed = 10;
         private static Random random = new Random();
         private static int countOfBitcoins = 0;
-        private static int width = 64;
+        private static int width = 32;
         private static int height = 32;
         private static Rectangle rect;
 

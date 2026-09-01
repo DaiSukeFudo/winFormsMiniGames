@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,7 +13,7 @@ namespace Game
 
         private static int x = 400;
         private static int y = 500;
-        private static int car_speed = 15;
+        private static int car_speed = 14;
 
         private static bool Up = false;
         private static bool Down = false;
@@ -25,8 +25,8 @@ namespace Game
         private const int Allowance_Up = 0;
         private const int Allowance_Down = 530;
 
-        private static int width = 64;
-        private static int height = 64;
+        private static int width = 75;
+        private static int height = 75;
         private static Rectangle rect;
 
         private static int lives = 3;
@@ -132,25 +132,6 @@ namespace Game
             }
         }
 
-        public static void DrawHeartsTest(PaintEventArgs e)
-        {
-            for (int i = 0; i < currentLives; i++)
-            {
-                int xPos = startX + i * spacing;
-                int yPos = startY;
-
-                if (i < currentLives)
-                {
-                    e.Graphics.DrawImage(heartImage, xPos, yPos, heartSize, heartSize);
-                }
-                else
-                {
-                    e.Graphics.DrawRectangle(Pens.Gray, xPos, yPos, heartSize, heartSize);
-                    e.Graphics.DrawString("❤", heartsFont, Brushes.Gray, xPos + 5, yPos + 5);
-                }
-            }
-        }
-
 
         public static bool LoseLife()
         {
@@ -161,8 +142,7 @@ namespace Game
 
             Sound.PlayPlayerExplosion();
             currentLives--;
-            //Debug.WriteLine("Heart redraw");
-            //DrawHeartsTest(e);
+
             if (currentLives == 0)
             {
                 Sound.PlayPlayerExplosion();

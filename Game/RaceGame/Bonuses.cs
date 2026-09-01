@@ -12,7 +12,7 @@ namespace Game
         private static int x = random.Next(200, 540);
         private static int y = -600;
         private static int speed = 15;
-        private static int width = 64;
+        private static int width = 32;
         private static int height = 32;
         private static Rectangle rect;
 

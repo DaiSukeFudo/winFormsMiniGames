@@ -6,14 +6,15 @@ namespace Game
 {
     internal class Enemy
     {
-        private static Image enemyImage = Properties.Resources.enemy;
+        //private static Image enemyImage = Properties.Resources.enemy;
+        private static Image enemyImage = Properties.Resources.car;
         private static Random random = new Random();
         private static int enemy_speed = 20;
         private static int x = random.Next(200, 540);
         private static int y = -500;
         
-        private static int width = 50;
-        private static int height = 50;
+        private static int width = 75;
+        private static int height = 75;
         private static Rectangle rect;
 
 
@@ -24,7 +25,7 @@ namespace Game
 
         public static Rectangle GetRect()
         {
-            rect = new Rectangle(x, y, width, height); 
+            rect = new Rectangle(x, y, width, height-75); 
             return rect;
         }
 
@@ -38,13 +39,13 @@ namespace Game
                 y = -height;
                 x = random.Next(220, 520);
             }
-            rect = new Rectangle(x, y, width, height);
+            rect = new Rectangle(x, y, width, height-75);
         }
 
 
         public static void Enemy_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(enemyImage, x, y, width + 10, height + 10);
+            e.Graphics.DrawImage(enemyImage, x, y, width, -1 * height); //
             
         }
 

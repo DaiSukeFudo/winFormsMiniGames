@@ -95,7 +95,7 @@
             this.Enemy1 = new System.Windows.Forms.PictureBox();
             this.Enemy2 = new System.Windows.Forms.PictureBox();
             this.bitoc = new System.Windows.Forms.PictureBox();
-            this.exit = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Road2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Enemy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Enemy2)).BeginInit();
@@ -151,16 +151,16 @@
             this.bitoc.TabIndex = 5;
             this.bitoc.TabStop = false;
             // 
-            // exit
+            // btnExit
             // 
-            this.exit.BackColor = System.Drawing.Color.RosyBrown;
-            this.exit.Location = new System.Drawing.Point(703, 12);
-            this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(69, 22);
-            this.exit.TabIndex = 6;
-            this.exit.Text = "exit";
-            this.exit.UseVisualStyleBackColor = false;
-            this.exit.Click += new System.EventHandler(this.Exit_Click);
+            this.btnExit.BackColor = System.Drawing.Color.RosyBrown;
+            this.btnExit.Location = new System.Drawing.Point(720, 10);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(50, 25);
+            this.btnExit.TabIndex = 6;
+            this.btnExit.Text = "exit";
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // Race
             // 
@@ -168,15 +168,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.exit);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.bitoc);
             this.Controls.Add(this.Enemy2);
             this.Controls.Add(this.Enemy1);
             this.Controls.Add(this.Road2);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "Race";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Race";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Race_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RaceFormKeyDown);
@@ -195,7 +196,7 @@
         private System.Windows.Forms.PictureBox Enemy2;
         private System.Windows.Forms.PictureBox bitoc;
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.Button exit;
+        private System.Windows.Forms.Button btnExit;
     }
 }
 

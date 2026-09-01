@@ -28,67 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.soundMixer = new System.Windows.Forms.TrackBar();
-            this.fps = new System.Windows.Forms.ComboBox();
+            this.btnExit = new System.Windows.Forms.Button();
             this.cbMainMenuMusic = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.soundMixer)).BeginInit();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // btnExit
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button1.BackColor = System.Drawing.Color.RosyBrown;
-            this.button1.Location = new System.Drawing.Point(697, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "exit";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.Exit_Click);
-            // 
-            // soundMixer
-            // 
-            this.soundMixer.Location = new System.Drawing.Point(300, 200);
-            this.soundMixer.Name = "soundMixer";
-            this.soundMixer.Size = new System.Drawing.Size(107, 45);
-            this.soundMixer.TabIndex = 1;
-            // 
-            // fps
-            // 
-            this.fps.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.fps.FormattingEnabled = true;
-            this.fps.Location = new System.Drawing.Point(300, 100);
-            this.fps.Name = "fps";
-            this.fps.Size = new System.Drawing.Size(107, 21);
-            this.fps.TabIndex = 3;
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.BackColor = System.Drawing.Color.RosyBrown;
+            this.btnExit.Location = new System.Drawing.Point(720, 10);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(50, 25);
+            this.btnExit.TabIndex = 0;
+            this.btnExit.Text = "close";
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // cbMainMenuMusic
             // 
+            this.cbMainMenuMusic.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cbMainMenuMusic.AutoSize = true;
+            this.cbMainMenuMusic.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cbMainMenuMusic.Checked = true;
             this.cbMainMenuMusic.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbMainMenuMusic.Location = new System.Drawing.Point(300, 150);
+            this.cbMainMenuMusic.Location = new System.Drawing.Point(25, 75);
             this.cbMainMenuMusic.Name = "cbMainMenuMusic";
             this.cbMainMenuMusic.Size = new System.Drawing.Size(107, 17);
             this.cbMainMenuMusic.TabIndex = 4;
             this.cbMainMenuMusic.Text = "main menu music";
-            this.cbMainMenuMusic.UseVisualStyleBackColor = true;
+            this.cbMainMenuMusic.UseVisualStyleBackColor = false;
             this.cbMainMenuMusic.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Book Antiqua", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(25, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(165, 35);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "SETTINGS:";
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.PeachPuff;
+            this.BackgroundImage = global::Game.Properties.Resources.cross;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cbMainMenuMusic);
-            this.Controls.Add(this.fps);
-            this.Controls.Add(this.soundMixer);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnExit);
             this.Name = "Settings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
-            ((System.ComponentModel.ISupportInitialize)(this.soundMixer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,9 +92,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TrackBar soundMixer;
-        private System.Windows.Forms.ComboBox fps;
+        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.CheckBox cbMainMenuMusic;
+        private System.Windows.Forms.Label label1;
     }
 }
