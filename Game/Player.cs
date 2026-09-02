@@ -51,7 +51,7 @@ namespace Game
 
         public override void Draw(Graphics g)
         {
-            if(!isInvincible || blinkcounter % 2 == 0)
+            if(!isInvincible || blinkCounter % 2 == 0)
             {
                 g.DrawImage(image, x, y, width, height );
             }

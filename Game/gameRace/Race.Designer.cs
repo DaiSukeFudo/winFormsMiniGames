@@ -7,6 +7,8 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        private Player Player;
+
         /// <summary>
         /// Освободить все используемые ресурсы.
         /// </summary>
@@ -51,15 +53,15 @@
                 // Dispose labels created in Race (they are not added to Controls in current code)
                 try
                 {
-                    if (this.scoreUI != null)
+                    if (this.scoreLabel != null)
                     {
-                        this.scoreUI.Dispose();
-                        this.scoreUI = null;
+                        this.scoreLabel.Dispose();
+                        this.scoreLabel = null;
                     }
-                    if (this.bitcoinUI != null)
+                    if (this.bitcoinLabel != null)
                     {
-                        this.bitcoinUI.Dispose();
-                        this.bitcoinUI = null;
+                        this.bitcoinLabel.Dispose();
+                        this.bitcoinLabel = null;
                     }
                 }
                 catch
@@ -70,7 +72,7 @@
                 // Ensure Player static timers are stopped
                 try
                 {
-                    Game.Player.Reset();
+                    player.Reset();
                 }
                 catch
                 {

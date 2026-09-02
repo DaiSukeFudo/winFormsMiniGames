@@ -5,66 +5,56 @@ using System.Windows.Forms;
 
 namespace Game
 {
-    internal class Bitcoin
+    internal class Bitcoin: GameObject
     {
-        private static Image bitcoinImage = Properties.Resources.bitcoin;
-        private static int x = 220;
-        private static int y = -100;
-        private static int bitok_speed = 10;
-        private static Random random = new Random();
-        private static int countOfBitcoins = 0;
-        private static int width = 64;
-        private static int height = 32;
-        private static Rectangle rect;
+        private int speed;
+        Random random = new Random();
 
+        private static int totalCollected = 0;
 
-        public static Rectangle GetRect()
+        private const int MIN_X = 200;
+        private const int MAX_X = 540;
+        private const int SCREEN_HEIGHT = 600;
+
+        public Bitcoin(int x, int y, int width, int height, Image image, int speed):base(x, y, width, height, image)
         {
-            rect = new Rectangle(x, y, width, height);
-            return rect;
+            this.speed = speed;
         }
 
-
-        public static void Move()
+        public override void Update()
         {
-           y += bitok_speed;
+            y += speed;
 
-           if (y > 600)
-           {
-               Respawn();
-           }
-           rect = new Rectangle(x, y, width, height);
+            if (y > SCREEN_HEIGHT) 
+            { 
+                Respawn();
+            }
         }
 
-
-        public static void Respawn()
+        private void Respawn()
         {
-            y = random.Next(-500, -50); 
-            x = random.Next(200, 540);       
+            y = random.Next(-500, -50);
+            x = random.Next(MIN_X, MAX_X);
         }
 
-
-        public static void Collect(Label bitcoinLabel)
+        public void Collect()
         {
+            totalCollected++;
             Respawn();
             Sound.PlayBitcoinCollect();
-            countOfBitcoins++;
-            bitcoinLabel.Text = $"bitcoins: {countOfBitcoins}";
         }
 
-
-        public static void Bitcoin_Paint(object sender, PaintEventArgs e)
+        public static int GetTotalCollected()
         {
-            e.Graphics.DrawImage(bitcoinImage, rect);
+            return totalCollected;
         }
 
-
-        public static void Reset(Label bitcoinLabel)
+        public void Reset()
         {
-            Respawn();
-            countOfBitcoins = 0;
-            bitcoinLabel.Text = $"bitcoins: {countOfBitcoins}";
-            bitcoinLabel.Update();
+            totalCollected = 0;
+            y = random.Next(-500, -50);
+            x = random.Next(MIN_X, MAX_X);
         }
+
     }
 }

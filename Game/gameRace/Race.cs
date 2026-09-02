@@ -9,16 +9,21 @@ namespace Game
 {
     public partial class Race : Form
     {
-       
+
+        private List<IGameObject> gameObjects = new List<IGameObject>();
+
         private Player player;
+        private Enemy enemy1;
+        private Enemy enemy2;
+        private Bitcoin bitcoin;
+        private Bonuses shieldBonus;
 
-        List<GameObject> gameObjects = new List<GameObject> ();
-        
-        
+        private Label scoreLabel;
+        private Label bitcoinLabel;
+
+
         private int distanceScore = 0;
-
-        private Label scoreUI = UIControl.CreateLabel("score: 0", new Point(0, 5), Color.GreenYellow);
-        private Label bitcoinUI = UIControl.CreateLabel("bitcoin: 0", new Point(0, 30), Color.Gold);
+        private Random random = new Random();
 
         public Race()
         {
@@ -26,17 +31,11 @@ namespace Game
 
             DoubleBuffered = true;
 
-            player = new Player(
-            x: 400,
-            y: 500,
-            width: 64,
-            height: 64,
-            image: Properties.Resources.car
-            );
+            CreateUI();
 
-            gameObjects.Add(player);
+            CreateGameObjects();
 
-            
+
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
                           ControlStyles.UserPaint |
                           ControlStyles.OptimizedDoubleBuffer, true);
@@ -49,25 +48,13 @@ namespace Game
             Sound.CreatePlayerExplosion();
 
 
+
             
-            Controls.Add(scoreUI);
-            Controls.Add(bitcoinUI);
 
             timer.Interval = 25;
-
-            
-        }
-
-        public void RestartGame()
-        {
-            timer.Enabled = false;
-            distanceScore = 0;
-            Road.Reset();
-            player.Reset();
-            Enemy.Reset();
-            Bitcoin.Reset(bitcoinUI);
-            Bonuses.Reset();
             timer.Enabled = true;
+
+            this.Paint += new PaintEventHandler(Race_Paint);
         }
 
         public void StopGame()
@@ -87,95 +74,98 @@ namespace Game
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            Road.Move();
+
             foreach (var obj in gameObjects)
             {
                 obj.Update();
             }
 
-            // Проверка столкновений
-            if (player.GetBounds().IntersectsWith(enemy.GetBounds()))
-            {
-                bool isDead = player.TakeDamage();  // ← Игрок теряет жизнь
-                if (isDead)
-                {
-                    // Game Over
-                }
-            }
+            distanceScore++;
+            scoreLabel.Text = $"Score: {distanceScore / 5}";
 
+            CheckCollisions();
 
+            
+            bitcoinLabel.Text = $"Bitcoins: {Bitcoin.GetTotalCollected()}";
 
+            Invalidate();
 
-
-
-
-
-
-
-
-
-
-            //if (this.IsDisposed || this.Disposing) 
-            //{
-            //    return;
-            //}
-
-            //distanceScore++;
-
-            //scoreUI.Text = $"score: {distanceScore / 5}";
-            //scoreUI.Update();
-
-
-            //if (CollisionDetection(Player.GetRect(), Enemy.GetRect()))
-            //{
-            //    bool isDead = Player.LoseLife();
-
-            //    if (isDead)
-            //    {
-            //        StopGame();
-
-            //        DialogResult result = MessageBox.Show("Вы проиграли! Хотите сыграть еще?",
-            //                                               "Game Over",
-            //                                               MessageBoxButtons.YesNo
-            //        );
-
-            //        if (result == DialogResult.Yes)
-            //        {
-            //            RestartGame();
-            //        }
-            //        else
-            //        {
-            //            if (timer != null) // maybe do func
-            //            {
-            //                timer.Enabled = false;
-            //                timer.Dispose();
-            //            }
-            //            RestartGame();
-            //            Sound.RemovePlayerExplosion();
-            //            Sound.RemoveBitcoinCollect();
-            //            ClearAllImages(this.Controls);
-            //            Dispose();
-            //        }
-            //    }
-            //}
-
-            //if (CollisionDetection(Player.GetRect(), Bitcoin.GetRect()))
-            //{
-            //    Bitcoin.Collect(bitcoinUI);
-            //}
-
-            //Road.Move();
-            //Player.Move();
-            //Enemy.Move();
-            //Bitcoin.Move();
-            //Bonuses.Move();
-
-            //Invalidate();
         }
+           
+
         
 
-        private void Exit_Click(object sender, EventArgs e) // PROBLEM: memory leak!!!
+        private void CreateUI()
         {
-            if (timer != null) // maybe do func
+            scoreLabel = UIControl.CreateLabel("Score: 0", new Point(0, 5), Color.GreenYellow);
+            bitcoinLabel = UIControl.CreateLabel("Bitcoins: 0", new Point(0, 30), Color.Gold);
+
+            Controls.Add(scoreLabel);
+            Controls.Add(bitcoinLabel);
+        }
+
+        private void CreateGameObjects()
+        {
+           
+            player = new Player(400, 500, 64, 64, Properties.Resources.car);
+            gameObjects.Add(player);
+
+           
+            enemy1 = new Enemy(
+                random.Next(200, 540),
+                random.Next(-500, -50),
+                50, 50,
+                Properties.Resources.enemy,
+                15
+            );
+            gameObjects.Add(enemy1);
+
+            enemy2 = new Enemy(
+                random.Next(200, 540),
+                random.Next(-500, -50),
+                50, 50,
+                Properties.Resources.enemy,
+                25
+            );
+            gameObjects.Add(enemy2);
+
+            
+            bitcoin = new Bitcoin(
+                random.Next(200, 540),
+                random.Next(-500, -50),
+                64, 32,
+                Properties.Resources.bitcoin,
+                10
+            );
+            gameObjects.Add(bitcoin);
+
+            
+            shieldBonus = new Bonuses(
+                random.Next(200, 540),
+                random.Next(-500, -50),
+                64, 32,
+                Properties.Resources.Shield,
+                15
+            );
+            gameObjects.Add(shieldBonus);
+        }
+
+        private void Race_Paint(object sender, PaintEventArgs e)
+        {
+
+            Road.Road_Paint(sender, e);
+
+            foreach (var obj in gameObjects)
+            {
+                obj.Draw(e.Graphics);
+            }
+        }
+
+
+        private void Exit_Click(object sender, EventArgs e) 
+        {
+            if (timer != null) 
             {
                 timer.Enabled = false;
                 timer.Dispose();
@@ -191,6 +181,69 @@ namespace Game
 
         }
 
+        private void CheckCollisions()
+        {
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                for (int j = i + 1; j < gameObjects.Count; j++)
+                {
+                    var objA = gameObjects[i];
+                    var objB = gameObjects[j];
+
+                    if (!objA.GetBounds().IntersectsWith(objB.GetBounds()))
+                        continue;
+
+                    if (objA is Player && objB is Enemy)
+                    {
+                        bool isDead = player.TakeDamage();
+                        if (isDead) GameOver();
+                    }
+                    else if (objA is Enemy && objB is Player)
+                    {
+                        bool isDead = player.TakeDamage();
+                        if (isDead) GameOver();
+                    }
+
+                    if (objA is Player && objB is Bitcoin)
+                    {
+                        bitcoin.Collect();
+                    }
+                    else if (objA is Bitcoin && objB is Player)
+                    {
+                        bitcoin.Collect();
+                    }
+
+                    if (objA is Player && objB is Bonuses)
+                    {
+                        shieldBonus.Collect(player);
+                    }
+                    else if (objA is Bonuses && objB is Player)
+                    {
+                        shieldBonus.Collect(player);
+                    }
+                }
+            }
+        }
+
+        private void GameOver()
+        {
+            timer.Enabled = false;
+
+            DialogResult result = MessageBox.Show(
+                "Вы проиграли! Хотите сыграть ещё?",
+                "Game Over",
+                MessageBoxButtons.YesNo
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                RestartGame();
+            }
+            else
+            {
+                Close();
+            }
+        }
 
         private void ClearAllImages(Control.ControlCollection controls)
         {
@@ -227,10 +280,18 @@ namespace Game
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void RestartGame()
         {
+            Road.Reset();
+            player.Reset();
+            enemy1.Reset();
+            enemy2.Reset();
+            bitcoin.Reset();
+            shieldBonus.Reset();
 
+            distanceScore = 0;
+            timer.Enabled = true;
         }
-        
+
     }
 }
