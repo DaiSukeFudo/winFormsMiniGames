@@ -5,46 +5,47 @@ using System.Windows.Forms;
 
 namespace Game
 {
-    internal class Bonuses
+    internal class Bonuses:GameObject
     {
-        private static Image shieldImage = Properties.Resources.Shield;
-        private static Random random = new Random();
-        private static int x = random.Next(200, 540);
-        private static int y = -600;
-        private static int speed = 15;
-        private static int width = 32;
-        private static int height = 32;
-        private static Rectangle rect;
+        private int speed;           
+        private Random random = new Random();
 
-        //Bonuses()
-        //{
-        //    x = random.Next(200, 540);
-        //}
+        private const int MIN_X = 200;
+        private const int MAX_X = 540;
+        private const int SCREEN_HEIGHT = 600;
 
+        public Bonuses(int x, int y, int width, int height, Image image, int speed) : base(x, y, width, height, image)
+        {
+            this.speed = speed;
+        }
 
-        public static void Move()
+        public override void Update()
         {
             y += speed;
-            if (y > 600)
+
+            if (y > SCREEN_HEIGHT)
             {
-                y = -height;
-                x = random.Next(200, 540);
+                Respawn();
             }
-            rect = new Rectangle(x, y, width, height);
         }
 
-
-        public static void Bonuses_Paint(object sender, PaintEventArgs e)
+        public void Collect(Player player)
         {
-            e.Graphics.DrawImage(shieldImage, x, y, width, height);
 
+            Respawn(); 
         }
 
-
-        public static void Reset()
+        public void Reset()
         {
-            x = random.Next(200, 540);
-            y = -500;
+            y = random.Next(-500, -50);
+            x = random.Next(MIN_X, MAX_X);
         }
+
+        private void Respawn()
+        {
+            y = random.Next(-500, -50);
+            x = random.Next(MIN_X, MAX_X);
+        }
+
     }
 }

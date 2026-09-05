@@ -4,56 +4,40 @@ using System.Windows.Forms;
 
 namespace Game
 {
-    internal class Enemy
+    internal class Enemy : GameObject
     {
-        //private static Image enemyImage = Properties.Resources.enemy;
-        private static Image enemyImage = Properties.Resources.car;
-        private static Random random = new Random();
-        private static int enemy_speed = 20;
-        private static int x = random.Next(200, 540);
-        private static int y = -500;
-        
-        private static int width = 75;
-        private static int height = 75;
-        private static Rectangle rect;
+        private int speed;
+        Random random = new Random();
 
+        private const int MAX_X = 540;
+        private const int MIN_X = 200;
+        private const int SCREEN_HEIGHT = 600;
 
-        //static Enemy()
-        //{
-        //    x = random.Next(200, 540);
-        //}
-
-        public static Rectangle GetRect()
+        public Enemy(int x, int y, int width, int height, Image image,int speed ) : base(x, y, width, height, image)
         {
-            rect = new Rectangle(x, y, width, height-75); 
-            return rect;
+            this.speed = speed;
         }
 
-    
-        public static void Move()
-        {       
-            y += enemy_speed;
+        public override void Update()
+        {
+            y += speed;
 
-            if (y > 600)
+            if(y > SCREEN_HEIGHT)
             {
-                y = -height;
-                x = random.Next(220, 520);
+                Respawn();
             }
-            rect = new Rectangle(x, y, width, height-75);
         }
 
-
-        public static void Enemy_Paint(object sender, PaintEventArgs e)
+        public void Reset()
         {
-            e.Graphics.DrawImage(enemyImage, x, y, width, -1 * height); //
-            
+            y = random.Next(-500, -50);
+            x = random.Next(MIN_X, MAX_X);
         }
 
-
-        public static void Reset()
+        private void Respawn()
         {
-            x = random.Next(200, 540);
-            y = -500;
+            y = random.Next(-500, -50);
+            x = random.Next(MIN_X, MAX_X);
         }
     }
 }

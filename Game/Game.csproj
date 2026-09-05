@@ -52,13 +52,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="RaceGame\Bitcoin.cs" />
-    <Compile Include="NET\Client.cs">
+    <Compile Include="GameObject.cs" />
+    <Compile Include="gameRace\Bitcoin.cs" />
+    <Compile Include="net\Client.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NET\Client.Designer.cs">
