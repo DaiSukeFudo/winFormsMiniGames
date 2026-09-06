@@ -21,12 +21,12 @@ namespace Game
             if(cbMainMenuMusic.Checked)
             {
                 Properties.Settings.Default.SoundStatus = true;
-                Sound.CreateMenuMusic();
-                Sound.PlayMenuMusic();
+                SoundControl.CreateMenuMusic();
+                SoundControl.PlayMenuMusic();
             }
             else
             {
-                Sound.RemoveMenuMusic();
+                SoundControl.RemoveMenuMusic();
                 Properties.Settings.Default.SoundStatus = false;
             }
         }

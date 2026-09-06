@@ -44,8 +44,8 @@ namespace Game
             KeyPreview = true;
 
 
-            Sound.CreateBitcoinCollect();
-            Sound.CreatePlayerExplosion();
+            SoundControl.CreateBitcoinCollect();
+            SoundControl.CreatePlayerExplosion();
 
 
 
@@ -116,7 +116,7 @@ namespace Game
                 random.Next(200, 540),
                 random.Next(-500, -50),
                 50, 50,
-                Properties.Resources.enemy,
+                Properties.Resources.car,
                 15
             );
             gameObjects.Add(enemy1);
@@ -125,7 +125,7 @@ namespace Game
                 random.Next(200, 540),
                 random.Next(-500, -50),
                 50, 50,
-                Properties.Resources.enemy,
+                Properties.Resources.car,
                 25
             );
             gameObjects.Add(enemy2);
@@ -171,8 +171,8 @@ namespace Game
                 timer.Dispose();
             }
             RestartGame();
-            Sound.RemovePlayerExplosion();
-            Sound.RemoveBitcoinCollect();
+            SoundControl.RemovePlayerExplosion();
+            SoundControl.RemoveBitcoinCollect();
 
             ClearAllImages(this.Controls);
             Dispose();

@@ -13,15 +13,15 @@ namespace Game
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Sound.RemoveMenuMusic();
+            SoundControl.RemoveMenuMusic();
             Hide();
             using (TicTacToeGame.TicTacToe gameForm = new TicTacToeGame.TicTacToe())
             {
                 gameForm.ShowDialog();
             }
             Show();
-            Sound.CreateMenuMusic();
-            Sound.PlayMenuMusic();
+            SoundControl.CreateMenuMusic();
+            SoundControl.PlayMenuMusic();
             //Debug.WriteLine("Main_Menu: race closed");
         }
 
@@ -32,42 +32,42 @@ namespace Game
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Sound.RemoveMenuMusic();
+            SoundControl.RemoveMenuMusic();
             Hide();
             using (Race gameForm = new Race())
             {
                 gameForm.ShowDialog();
             }
             Show();
-            Sound.CreateMenuMusic();
-            Sound.PlayMenuMusic();
+            SoundControl.CreateMenuMusic();
+            SoundControl.PlayMenuMusic();
             //Debug.WriteLine("Main_Menu: race closed");
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Sound.RemoveMenuMusic();
+            SoundControl.RemoveMenuMusic();
             Hide();
             using (Snake gameForm = new Snake())
             {
                 gameForm.ShowDialog();
             }
             Show();
-            Sound.CreateMenuMusic();
-            Sound.PlayMenuMusic();
+            SoundControl.CreateMenuMusic();
+            SoundControl.PlayMenuMusic();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Sound.RemoveMenuMusic();
+            SoundControl.RemoveMenuMusic();
             Hide();
             using (Tetris gameForm = new Tetris())
             {
                 gameForm.ShowDialog();
             }
             Show();
-            Sound.CreateMenuMusic();
-            Sound.PlayMenuMusic();
+            SoundControl.CreateMenuMusic();
+            SoundControl.PlayMenuMusic();
         }
     }
 }

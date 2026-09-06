@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Game
 {
-    public partial class Main_Menu : Form
+    public partial class MainMenu : Form
     {   
         private Settings settingsForm = new Settings();
         private Server serverForm = new Server();
@@ -14,12 +14,12 @@ namespace Game
         private Games gamesForm = new Games();
 
 
-        public Main_Menu()
+        public MainMenu()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            Sound.CreateMenuMusic();
-            Sound.PlayMenuMusic();
+            SoundControl.CreateMenuMusic();
+            SoundControl.PlayMenuMusic();
 
             // child form settings:
             gamesForm.TopLevel = false;
@@ -51,15 +51,15 @@ namespace Game
 
         private void Play_Click(object sender, EventArgs e)
         {
-            Sound.RemoveMenuMusic();
+            SoundControl.RemoveMenuMusic();
             Hide();
             using (Race gameForm = new Race())
             {
                 gameForm.ShowDialog();
             }
             Show();
-            Sound.CreateMenuMusic();
-            Sound.PlayMenuMusic();
+            SoundControl.CreateMenuMusic();
+            SoundControl.PlayMenuMusic();
             Debug.WriteLine("Main_Menu: race closed");
         }
 

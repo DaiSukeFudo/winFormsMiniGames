@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Game
 {
-    public class Sound
+    public class SoundControl
     {
         public static void Off()
         {

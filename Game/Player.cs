@@ -86,13 +86,13 @@ namespace Game
         {
             if (isInvincible) return false;
 
-            Sound.PlayPlayerExplosion();
+            SoundControl.PlayPlayerExplosion();
 
             currentLives--;
 
             if(currentLives <= 0)
             {
-                Sound.PlayPlayerExplosion();
+                SoundControl.PlayPlayerExplosion();
                 return true;
             }
 
