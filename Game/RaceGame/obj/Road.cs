@@ -7,17 +7,17 @@ namespace Game
     internal class Road
     {
         private static Image roadImage = Properties.Resources.road;
-        private static int x = 100;
+        private static int x = 50;
         private static int y = 0;
         private static int start_y = y - 600;
-        private static int Speed = 15; 
+        private static int Speed = 10; 
         
 
         public static void Road_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.SetClip(e.ClipRectangle);
-            e.Graphics.DrawImage(roadImage, x, y, 600, 600);
-            e.Graphics.DrawImage(roadImage, x, start_y, 600, 600);
+            e.Graphics.DrawImage(roadImage, x, y, 700, 600);
+            e.Graphics.DrawImage(roadImage, x, start_y, 700, 600);
             e.Graphics.ResetClip();
         }
 

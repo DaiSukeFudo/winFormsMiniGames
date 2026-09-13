@@ -9,92 +9,77 @@ namespace Game
 {
     public partial class Race : Form
     {
-
         private List<IGameObject> gameObjects = new List<IGameObject>();
 
+        // GAME OBJECTS:
         private Player player;
         private Enemy enemy1;
         private Enemy enemy2;
         private Bitcoin bitcoin;
         private Bonuses shieldBonus;
 
+        // LABELS:
         private Label scoreLabel;
         private Label bitcoinLabel;
 
-
         private int distanceScore = 0;
         private Random random = new Random();
+
 
         public Race()
         {
             InitializeComponent();
 
             DoubleBuffered = true;
-
-            CreateUI();
-
-            CreateGameObjects();
-
-
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
-                          ControlStyles.UserPaint |
-                          ControlStyles.OptimizedDoubleBuffer, true);
+              ControlStyles.UserPaint |
+              ControlStyles.OptimizedDoubleBuffer, true);
             this.UpdateStyles();
-
             KeyPreview = true;
 
+            // INIT:
+            CreateUI();
+            CreateGameObjects();
 
+            // SOUNDS:
             SoundControl.CreateBitcoinCollect();
             SoundControl.CreatePlayerExplosion();
 
-
-
-            
-
             timer.Interval = 25;
             timer.Enabled = true;
-
             this.Paint += new PaintEventHandler(Race_Paint);
         }
 
-        public void StopGame()
-        {
-            timer.Enabled = false;
-        }
 
         private void RaceFormKeyDown(object sender, KeyEventArgs e)
         {
             player.KeyDown(sender,e);
         }
 
+
         private void RaceFormKeyUp(object sender, KeyEventArgs e)
         {
             player.KeyUp(sender, e);
         }
 
+
         private void timer_Tick(object sender, EventArgs e)
         {
             Road.Move();
-
             foreach (var obj in gameObjects)
             {
                 obj.Update();
             }
 
-            distanceScore++;
-            scoreLabel.Text = $"Score: {distanceScore / 5}";
-
             CheckCollisions();
 
-            
+            distanceScore++;
+            scoreLabel.Text = $"Score: {distanceScore / 5}";
             bitcoinLabel.Text = $"Bitcoins: {Bitcoin.GetTotalCollected()}";
 
             Invalidate();
-
         }
            
-
-        
 
         private void CreateUI()
         {
@@ -105,51 +90,96 @@ namespace Game
             Controls.Add(bitcoinLabel);
         }
 
+
         private void CreateGameObjects()
         {
            
-            player = new Player(400, 500, 64, 64, Properties.Resources.car);
+            player = new Player(400, 500, 32, 64, Properties.Resources.car);
             gameObjects.Add(player);
 
-           
             enemy1 = new Enemy(
                 random.Next(200, 540),
                 random.Next(-500, -50),
-                50, 50,
+                32, 64,
                 Properties.Resources.car,
+                true,
                 15
             );
             gameObjects.Add(enemy1);
 
+            GameObject enemyTest1 = new Enemy(
+                random.Next(200, 540),
+                random.Next(-400, -40),
+                32, 64,
+                Properties.Resources.car,
+                true,
+                random.Next(5, 20)
+            );
+            gameObjects.Add(enemyTest1);
+
+            GameObject enemyTest2 = new Enemy(
+                random.Next(200, 540),
+                random.Next(-400, -40),
+                32, 64,
+                Properties.Resources.car,
+                true,
+                random.Next(5, 20)
+            );
+            gameObjects.Add(enemyTest2);
+
+            GameObject enemyTest3 = new Enemy(
+                random.Next(200, 540),
+                random.Next(-400, -40),
+                32, 64,
+                Properties.Resources.car,
+                true,
+                random.Next(5, 20)
+            );
+            gameObjects.Add(enemyTest3);
+
+            GameObject enemyTest4 = new Enemy(
+                random.Next(200, 540),
+                random.Next(-400, -40),
+                32, 64,
+                Properties.Resources.car,
+                true,
+                random.Next(5, 20)
+            );
+            gameObjects.Add(enemyTest4);
+
+
             enemy2 = new Enemy(
                 random.Next(200, 540),
-                random.Next(-500, -50),
-                50, 50,
+                random.Next(-100, -10),
+                32, 64,
                 Properties.Resources.car,
-                25
+                false,
+                random.Next(5,20)
             );
-            gameObjects.Add(enemy2);
 
-            
             bitcoin = new Bitcoin(
                 random.Next(200, 540),
-                random.Next(-500, -50),
-                64, 32,
+                random.Next(-100, -10),
+                32, 32,
                 Properties.Resources.bitcoin,
                 10
             );
             gameObjects.Add(bitcoin);
 
-            
             shieldBonus = new Bonuses(
                 random.Next(200, 540),
                 random.Next(-500, -50),
-                64, 32,
+                32, 32,
                 Properties.Resources.Shield,
                 15
             );
             gameObjects.Add(shieldBonus);
+
+
+            // box
+            // aptechka
         }
+
 
         private void Race_Paint(object sender, PaintEventArgs e)
         {
@@ -180,6 +210,7 @@ namespace Game
             //Debug.WriteLine("BUTTON: exit");
 
         }
+
 
         private void CheckCollisions()
         {
@@ -225,6 +256,7 @@ namespace Game
             }
         }
 
+
         private void GameOver()
         {
             timer.Enabled = false;
@@ -245,11 +277,11 @@ namespace Game
             }
         }
 
+
         private void ClearAllImages(Control.ControlCollection controls)
         {
             foreach (Control ctrl in controls)
             {
-                // 1. Если элемент — это PictureBox, уничтожаем его картинку
                 if (ctrl is PictureBox pb)
                 {
                     if (pb.Image != null)
@@ -264,14 +296,11 @@ namespace Game
                     }
                 }
 
-                // 2. Если внутри этого элемента есть другие элементы (например, в Panel или GroupBox)
-                // запускаем этот же метод для них (рекурсия)
                 if (ctrl.HasChildren)
                 {
                     ClearAllImages(ctrl.Controls);
                 }
 
-                // 3. Дополнительно очищаем фоновые изображения самих контейнеров
                 if (ctrl.BackgroundImage != null)
                 {
                     ctrl.BackgroundImage.Dispose();
@@ -279,6 +308,7 @@ namespace Game
                 }
             }
         }
+
 
         public void RestartGame()
         {
@@ -290,8 +320,7 @@ namespace Game
             shieldBonus.Reset();
 
             distanceScore = 0;
-            timer.Enabled = true;
+            //timer.Enabled = true;
         }
-
     }
 }

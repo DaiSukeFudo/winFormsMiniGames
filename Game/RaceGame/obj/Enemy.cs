@@ -7,13 +7,14 @@ namespace Game
     internal class Enemy : GameObject
     {
         private int speed;
+        private int health = 100;
         Random random = new Random();
 
         private const int MAX_X = 540;
         private const int MIN_X = 200;
         private const int SCREEN_HEIGHT = 600;
 
-        public Enemy(int x, int y, int width, int height, Image image,int speed ) : base(x, y, width, height, image)
+        public Enemy(int x, int y, int width, int height, Image image, bool reverseY, int speed) : base(x, y, width, height, image, reverseY)
         {
             this.speed = speed;
         }

@@ -8,8 +8,9 @@ namespace Game
     internal class Player : GameObject
     {
         private int lives = 3;
-        private int speed = 20;
+        private int speed = 12;
         private int currentLives;
+        private int damage = 5;
 
         private bool isInvincible = false;
         private int blinkCounter = 0;
@@ -20,10 +21,10 @@ namespace Game
         private bool isUp = false;
         private bool isDown = false;
 
-        private const int MIN_X = 200;
-        private const int MAX_X = 540;
-        private const int MIN_Y = 0;
-        private const int MAX_Y = 530;
+        private const int MIN_X = 170;
+        private const int MAX_X = 600;
+        private const int MIN_Y = 10;
+        private const int MAX_Y = 500;
 
         private static Image heartImage = Properties.Resources.health;
         private const int HEART_SIZE = 30;
